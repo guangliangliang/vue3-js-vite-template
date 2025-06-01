@@ -1,0 +1,2 @@
+#!/bin/sh
+node check-commit-msg.cjs "$1"
