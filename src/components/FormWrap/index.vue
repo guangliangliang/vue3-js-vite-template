@@ -12,7 +12,7 @@
     </el-card>
 
     <footer v-if="showFooter" class="form-btn-warp" :style="footerLeftStyle">
-      <el-button v-if="showCancel" class="w-25" @click="$router.back()"> 返 回 </el-button>
+      <el-button v-if="showCancel" class="w-25" @click="$router.back()">返 回</el-button>
       <el-button
         v-if="showConfirm"
         class="w-25 ml-4"
@@ -27,59 +27,76 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, computed } from 'vue'
 import { throttle } from 'lodash-es'
-import { makeNumberProp, makeStringProp, truthProp } from '@/utils/props'
 import { useLayoutStore } from '@/stores'
 
-export default {
-  name: 'OFormWrap',
-  props: {
-    title: makeStringProp(''),
-    showFooter: truthProp,
-    showCancel: truthProp,
-    cancelText: makeStringProp('取消'),
-    showConfirm: truthProp,
-    confirmText: makeStringProp('确认'),
-    showRightBtn: truthProp,
-    throttleTime: makeNumberProp(1000)
+// props
+defineOptions({ name: 'OFormWrap' })
+
+const props = defineProps({
+  title: {
+    type: String,
+    default: ''
   },
-  emits: ['confirm'],
-  setup(props, { emit }) {
-    const layoutStore = useLayoutStore()
-    const loading = ref(false)
-
-    const footerLeftStyle = computed(() => {
-      return {
-        left: layoutStore.isCollapse ? '74px' : '230px'
-      }
-    })
-
-    const onConfirm = throttle(() => {
-      if (!loading.value) {
-        emit('confirm', (value = false) => {
-          loading.value = value
-        })
-      }
-    }, props.throttleTime)
-
-    return {
-      loading,
-      onConfirm,
-      footerLeftStyle
-    }
+  showFooter: {
+    type: Boolean,
+    default: true
+  },
+  showCancel: {
+    type: Boolean,
+    default: true
+  },
+  cancelText: {
+    type: String,
+    default: '取消'
+  },
+  showConfirm: {
+    type: Boolean,
+    default: true
+  },
+  confirmText: {
+    type: String,
+    default: '确认'
+  },
+  showRightBtn: {
+    type: Boolean,
+    default: true
+  },
+  throttleTime: {
+    type: Number,
+    default: 1000
   }
-}
+})
+
+const emit = defineEmits(['confirm'])
+
+const loading = ref(false)
+const layoutStore = useLayoutStore()
+
+const footerLeftStyle = computed(() => {
+  return {
+    left: layoutStore.isCollapse ? '74px' : '230px'
+  }
+})
+
+const onConfirm = throttle(() => {
+  if (!loading.value) {
+    emit('confirm', (val = false) => {
+      loading.value = val
+    })
+  }
+}, props.throttleTime)
 </script>
 
 <style lang="scss" scoped>
 .o-form-wrap {
-  margin-bottom: 0.625rem; // 2.5 * 0.25rem
+  margin-bottom: 0.625rem;
   position: relative;
 
   &.mb-20 {
-    margin-bottom: 5rem; // 20 * 0.25rem
+    margin-bottom: 5rem;
   }
 }
 
@@ -112,11 +129,11 @@ export default {
   z-index: 4;
 
   .w-25 {
-    width: 6.25rem; // 25 * 0.25rem
+    width: 6.25rem;
   }
 
   .ml-4 {
-    margin-left: 1rem; // 4 * 0.25rem
+    margin-left: 1rem;
   }
 }
 </style>

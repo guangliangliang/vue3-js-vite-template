@@ -51,111 +51,101 @@
   </o-form-wrap>
 </template>
 
-<script>
-import { ref, reactive, onBeforeMount } from 'vue'
+<script setup>
+import { ref, reactive, onBeforeMount, computed } from 'vue'
 import { ElMessage, genFileId } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
+import { Plus } from '@element-plus/icons-vue'
+
 import { baseURL } from '@/utils/request'
 import { useUserStore } from '@/stores'
 import { createUser, getUserInfo, updateUser } from '@/api/system/user'
 import { getToken } from '@/utils/auth'
 import { elv } from '@/utils/elValidation'
 import { roleOptions } from '@/views/system/user/config'
-export default {
-  setup() {
-    const route = useRoute()
-    const router = useRouter()
-    const usestore = useUserStore()
 
-    const avatar = ref('')
-    const isEditing = ref(false)
+// 路由 & 用户 store
+const route = useRoute()
+const router = useRouter()
+const usestore = useUserStore()
 
-    const id = route.params.id
-    const headers = {
-      'X-TOKEN': getToken()
-    }
+// 当前是否为编辑模式
+const id = route.params.id
+const isEditing = computed(() => !!id)
 
-    isEditing.value = id ? true : false
+// 引用表单 & 上传组件
+const ruleForm = ref()
+const upload = ref()
 
-    const upload = ref(null)
-    const ruleForm = ref(null)
-    const formData = reactive({
-      sex: '男',
-      name: '',
-      avatar: '',
-      mobile: '',
-      password: '',
-      role_ids: []
-    })
-    const formRules = reactive({
-      name: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
-      mobile: [{ required: true, validator: elv.isMobile(), trigger: 'blur' }],
-      password: [{ required: true, message: '请输入默认密码', trigger: 'blur' }],
-      role_ids: [{ required: true, message: '请选择用户角色', trigger: 'change' }]
-    })
+// 表单数据
+const formData = reactive({
+  sex: '男',
+  name: '',
+  avatar: '',
+  mobile: '',
+  password: '',
+  role_ids: []
+})
 
-    const userInfo = async () => {
-      const info = await getUserInfo(+id)
-      Object.assign(formData, info)
-    }
+// 表单校验规则
+const formRules = reactive({
+  name: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
+  mobile: [{ required: true, validator: elv.isMobile(), trigger: 'blur' }],
+  password: [{ required: true, message: '请输入默认密码', trigger: 'blur' }],
+  role_ids: [{ required: true, message: '请选择用户角色', trigger: 'change' }]
+})
 
-    const onAvatarSuccess = (response, uploadFile) => {
-      formData.avatar = response.data.url
-      avatar.value = URL.createObjectURL(uploadFile.raw)
-    }
-
-    const onExceed = (files, uploadFiles) => {
-      upload.value.clearFiles()
-      const file = files[0]
-      file.uid = genFileId()
-      upload.value.handleStart(file)
-
-      const fileRaw = uploadFiles[0].raw
-      avatar.value = URL.createObjectURL(fileRaw)
-
-      upload.value.submit()
-    }
-
-    const onConfirm = () => {
-      ruleForm.value.validate(async (valid) => {
-        if (valid) {
-          if (isEditing.value) {
-            await updateUser(formData)
-            ElMessage.success('编辑成功')
-            if (usestore.user.id === formData.id) {
-              usestore.getUser()
-            }
-          } else {
-            await createUser(formData)
-            ElMessage.success('添加成功')
-          }
-
-          router.back()
-        } else {
-          return false
-        }
-      })
-    }
-
-    onBeforeMount(() => {
-      if (isEditing.value) userInfo()
-    })
-
-    return {
-      upload,
-      roleOptions,
-      ruleForm,
-      formData,
-      formRules,
-      isEditing,
-      headers,
-      onAvatarSuccess,
-      onExceed,
-      onConfirm,
-      baseURL
-    }
-  }
+// 上传配置
+const headers = {
+  'X-TOKEN': getToken()
 }
+
+// 获取用户详情（编辑时调用）
+const userInfo = async () => {
+  const info = await getUserInfo(+id)
+  Object.assign(formData, info)
+}
+
+// 上传成功
+const onAvatarSuccess = (response) => {
+  formData.avatar = response.data.url
+}
+
+// 文件超出限制时替换上传
+const onExceed = (files, uploadFiles) => {
+  upload.value.clearFiles()
+  const file = files[0]
+  file.uid = genFileId()
+  upload.value.handleStart(file)
+
+  const fileRaw = uploadFiles[0].raw
+  formData.avatar = URL.createObjectURL(fileRaw)
+  upload.value.submit()
+}
+
+// 提交表单
+const onConfirm = () => {
+  ruleForm.value.validate(async (valid) => {
+    if (valid) {
+      if (isEditing.value) {
+        await updateUser(formData)
+        ElMessage.success('编辑成功')
+        if (usestore.user.id === formData.id) {
+          usestore.getUser()
+        }
+      } else {
+        await createUser(formData)
+        ElMessage.success('添加成功')
+      }
+      router.back()
+    }
+  })
+}
+
+// 组件加载时获取数据
+onBeforeMount(() => {
+  if (isEditing.value) userInfo()
+})
 </script>
 
 <style lang="scss" scoped>
@@ -166,12 +156,12 @@ export default {
 .upload-wrapper {
   align-items: center;
   border: 1px dashed var(--el-color-border);
-  border-radius: 0.375rem; /* 1.5 * 0.25rem */
+  border-radius: 0.375rem;
   box-sizing: border-box;
   display: flex;
   height: 8.75rem;
   justify-content: center;
-  width: 8.75rem; /* 35 * 0.25rem */
+  width: 8.75rem;
 }
 
 .avatar {

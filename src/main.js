@@ -8,6 +8,10 @@ import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'virtual:svg-icons-register'
+
+import 'swiper/css'
+import 'swiper/css/pagination'
+
 const pinia = createPinia()
 
 if (import.meta.env.MODE === 'development') {
