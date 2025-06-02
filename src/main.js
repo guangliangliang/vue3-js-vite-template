@@ -6,7 +6,6 @@ import router from '@/router'
 
 const pinia = createPinia()
 
-
 if (import.meta.env.MODE === 'development') {
   import('./mock')
 }

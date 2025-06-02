@@ -4,6 +4,7 @@ import vue from 'eslint-plugin-vue'
 import globals from 'globals'
 import { defineConfig } from 'eslint/config'
 import prettier from 'eslint-config-prettier'
+import vueParser from 'vue-eslint-parser'
 
 export default defineConfig([
   {
@@ -12,6 +13,7 @@ export default defineConfig([
   {
     files: ['**/*.js', '**/*.vue'],
     languageOptions: {
+      parser: vueParser,    // 解析 Vue SFC
       ecmaVersion: 2022,
       sourceType: 'module',
       globals: {
