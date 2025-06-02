@@ -14,7 +14,19 @@
     "order/order": ["custom-properties", "declarations"],
     "order/properties-alphabetical-order": true,
     "at-rule-no-unknown": null,
-    "scss/at-rule-no-unknown": true
+    "scss/at-rule-no-unknown": true,
+    "selector-class-pattern": [
+      "^(el|is|has)-[a-z0-9-]+$|^[a-z]([a-z0-9-]*)(__[a-z0-9-]+)?(--[a-z0-9-]+)?$",
+      {
+        "message": "Expected class selector to be kebab-case or BEM format"
+      }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["deep"]
+      }
+    ]
   },
   "overrides": [
     {

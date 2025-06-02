@@ -1,11 +1,38 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
-
-const routes = [{ path: '/', name: 'Home', component: Home }]
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import { getToken } from '@/utils/auth'
+import { baseTitle } from '@/config'
+import routes from './routes'
 
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== from.name) {
+    NProgress.start()
+  }
+
+  window.document.title = to.meta.title ? `${to.meta.title} | ${baseTitle}` : baseTitle
+  next()
+  const isLogin = getToken()
+  if (isLogin) {
+    if (to.name === 'login') {
+      next('/')
+    } else {
+      next()
+    }
+  } else if (to.name !== 'login') {
+    // next('/login')
+  } else {
+    next()
+  }
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

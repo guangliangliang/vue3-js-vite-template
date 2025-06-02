@@ -1,0 +1,92 @@
+<template>
+  <el-container>
+    <!-- 头部 -->
+    <el-header>
+      <o-header />
+    </el-header>
+
+    <!-- 侧边菜单栏 -->
+    <o-menu />
+
+    <!-- 主体内容 -->
+    <el-main :class="[layoutStore.isCollapse ? 'is-collapse' : '']">
+      <el-scrollbar class="main-scrollbar">
+        <!-- 主体部分 -->
+        <router-view />
+      </el-scrollbar>
+    </el-main>
+  </el-container>
+</template>
+
+<script setup>
+import { useLayoutStore, useUserStore } from '@/stores'
+import OHeader from './Header.vue'
+import OMenu from './Menu/Menu.vue'
+import { getToken } from '@/utils/auth'
+import { onMounted } from 'vue'
+const layoutStore = useLayoutStore()
+const usestore = useUserStore()
+onMounted(() => {
+  if (getToken()) {
+    usestore.getUser()
+  }
+})
+</script>
+
+<style scoped lang="scss">
+.el-container {
+  height: 100%;
+}
+
+.el-header {
+  align-items: center;
+  background-color: #162746;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  z-index: 1501;
+
+  p {
+    line-height: 60px;
+    margin: 0;
+  }
+}
+
+.aside {
+  background-color: var(--el-color-primary);
+  bottom: 0;
+  box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
+  box-sizing: border-box;
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.el-main {
+  backface-visibility: hidden;
+  height: 100%;
+  margin-left: 220px;
+  margin-top: 60px;
+  overflow: hidden;
+  padding: 0;
+  perspective: none;
+  position: relative;
+  transition: 0.3s margin-left ease-in-out;
+}
+
+.is-collapse {
+  margin-left: 64px;
+}
+
+:deep(.main-scrollbar) {
+  & > .el-scrollbar__wrap {
+    & > .el-scrollbar__view {
+      padding: 10px;
+    }
+  }
+}
+</style>
