@@ -4,6 +4,10 @@ import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default defineConfig({
+  server: {
+    host: true, // 或 '0.0.0.0'
+    port: 5173 // 你想用的端口
+  },
   plugins: [
     vue(),
     createSvgIconsPlugin({

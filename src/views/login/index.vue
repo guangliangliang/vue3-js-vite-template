@@ -17,7 +17,7 @@
             v-model="formState.username"
             size="large"
             placeholder="请输入用户名"
-            prefix-icon="el-icon-user"
+            prefix-icon="user"
           />
         </el-form-item>
         <el-form-item prop="password">
@@ -26,7 +26,7 @@
             size="large"
             placeholder="请输入密码"
             show-password
-            prefix-icon="el-icon-lock"
+            prefix-icon="lock"
           />
         </el-form-item>
         <el-form-item>
@@ -115,25 +115,27 @@ function handleFinish() {
   })
 }
 </script>
-
 <style scoped lang="scss">
 .login-container {
   align-items: center;
-  background: #f0f2f5;
   background: #f0f2f5 url('@/assets/images/login/background.svg') no-repeat 50%;
-  background-size: 100%;
+  background-position: top center;
+  background-size: cover;
+  background-size: contain;
   display: flex;
   height: 100vh;
   justify-content: center;
   min-height: 100%;
+  padding: 20px;
   position: relative;
   width: 100%;
 
   .login-card {
     border-radius: 8px;
-    padding: 30px;
+    max-width: 420px;
+    padding: 30px 24px;
     padding-bottom: 0;
-    width: auto;
+    width: 100%;
   }
 
   .login-button {
@@ -143,16 +145,19 @@ function handleFinish() {
   .top-title {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 40px;
+    text-align: center;
 
     h1 {
+      font-size: 24px;
       margin: 0;
     }
 
     img {
       margin-right: 10px;
-      width: 50px;
+      width: 40px;
     }
   }
 
@@ -172,7 +177,7 @@ function handleFinish() {
         transition: all 0.3s;
 
         &:not(:last-child) {
-          margin-right: 40px;
+          margin-right: 20px;
         }
       }
     }
@@ -180,6 +185,41 @@ function handleFinish() {
     .copyright {
       color: rgb(0 0 0 / 45%);
       font-size: 14px;
+    }
+  }
+}
+
+/* 移动端适配 */
+@media screen and (width <= 600px) {
+  .login-container {
+    background-position: top center;
+    background-size: contain;
+    padding: 10px;
+
+    .login-card {
+      padding: 24px 16px;
+    }
+
+    .top-title {
+      h1 {
+        font-size: 20px;
+      }
+    }
+
+    .footer {
+      margin: 32px 0 16px;
+
+      .links {
+        font-size: 12px;
+
+        a {
+          margin-right: 12px;
+        }
+      }
+
+      .copyright {
+        font-size: 12px;
+      }
     }
   }
 }

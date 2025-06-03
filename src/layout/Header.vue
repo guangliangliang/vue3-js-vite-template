@@ -1,7 +1,7 @@
 <template>
   <div class="header-left">
     <el-icon class="collapse-icon" :size="25" color="#fff" @click="handleCollapse">
-      <expand v-if="isCollapse" />
+      <expand v-if="collapse" />
       <fold v-else />
     </el-icon>
     <span class="title" v-text="baseTitle" />
@@ -40,10 +40,10 @@ const userStore = useUserStore()
 const layoutStore = useLayoutStore()
 
 const { user } = storeToRefs(userStore)
-const { isCollapse } = storeToRefs(layoutStore)
+const { collapse } = storeToRefs(layoutStore)
 
 const handleCollapse = () => {
-  layoutStore.updateCollapse(!layoutStore.isCollapse)
+  layoutStore.setCollapse(!layoutStore.collapse)
 }
 
 const handleLogout = () => {

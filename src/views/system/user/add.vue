@@ -157,7 +157,6 @@ onBeforeMount(() => {
   align-items: center;
   border: 1px dashed var(--el-color-border);
   border-radius: 0.375rem;
-  box-sizing: border-box;
   display: flex;
   height: 8.75rem;
   justify-content: center;

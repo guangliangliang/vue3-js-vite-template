@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar class="menu-container">
-    <el-menu :collapse="layoutStore.isCollapse" :default-active="activeMenu" unique-opened>
+    <el-menu :collapse="layoutStore.collapse" :default-active="activeMenu" unique-opened>
       <o-menu-item :menu-list="menuList" />
     </el-menu>
   </el-scrollbar>
@@ -60,20 +60,20 @@ watch(
   background-color: #fff;
   bottom: 0;
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
-  box-sizing: border-box;
   height: calc(100% - 60px);
   left: 0;
   overflow-y: auto;
-  position: fixed;
+  position: absolute;
   top: 60px;
   z-index: 2000;
 }
 
 .el-menu {
   border-right: 0;
+  width: var(--left-menu-min-width);
 
   &:not(.el-menu--collapse) {
-    width: 220px;
+    width: var(--left-menu-max-width);
   }
 }
 </style>

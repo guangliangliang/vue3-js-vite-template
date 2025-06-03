@@ -77,7 +77,7 @@ const layoutStore = useLayoutStore()
 
 const footerLeftStyle = computed(() => {
   return {
-    left: layoutStore.isCollapse ? '74px' : '230px'
+    left: layoutStore.mobile ? '10px' : layoutStore.collapse ? '74px' : '230px'
   }
 })
 

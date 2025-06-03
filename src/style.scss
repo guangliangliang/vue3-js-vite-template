@@ -13,11 +13,18 @@
 
 html,
 body {
-  background-color: #f2f5fb;
-  color: #181818;
   height: 100%;
   margin: 0;
-  min-width: 992px;
+  overflow: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  margin: 0;
   padding: 0;
 }
 

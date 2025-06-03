@@ -4,12 +4,15 @@
     <el-header>
       <o-header />
     </el-header>
-
+    <!-- 手机端打开菜单遮罩 -->
+    <div v-if="mobile && !collapse" class="mobile-overlay" @click="handleClickOutside"></div>
     <!-- 侧边菜单栏 -->
     <o-menu />
 
     <!-- 主体内容 -->
-    <el-main :class="[layoutStore.isCollapse ? 'is-collapse' : '']">
+    <el-main
+      :class="[layoutStore.collapse ? 'is-collapse' : '', layoutStore.mobile ? 'is-mobile' : '']"
+    >
       <el-scrollbar class="main-scrollbar">
         <!-- 主体部分 -->
         <router-view />
@@ -25,12 +28,15 @@ import OMenu from './Menu/Menu.vue'
 import { getToken } from '@/utils/auth'
 import { onMounted } from 'vue'
 const layoutStore = useLayoutStore()
-const usestore = useUserStore()
+const useStore = useUserStore()
 onMounted(() => {
   if (getToken()) {
-    usestore.getUser()
+    useStore.getUser()
   }
 })
+const handleClickOutside = () => {
+  layoutStore.setCollapse(true)
+}
 </script>
 
 <style scoped lang="scss">
@@ -59,7 +65,6 @@ onMounted(() => {
   background-color: var(--el-color-primary);
   bottom: 0;
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);
-  box-sizing: border-box;
   left: 0;
   position: fixed;
   top: 0;
@@ -69,7 +74,7 @@ onMounted(() => {
 .el-main {
   backface-visibility: hidden;
   height: 100%;
-  margin-left: 220px;
+  margin-left: var(--left-menu-max-width);
   margin-top: 60px;
   overflow: hidden;
   padding: 0;
@@ -78,8 +83,23 @@ onMounted(() => {
   transition: 0.3s margin-left ease-in-out;
 }
 
+.mobile-overlay {
+  background-color: var(--el-color-black);
+  height: 100%;
+  left: 0;
+  opacity: 0.3;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
 .is-collapse {
-  margin-left: 64px;
+  margin-left: var(--left-menu-min-width);
+}
+
+.is-mobile {
+  margin-left: 0;
 }
 
 :deep(.main-scrollbar) {
