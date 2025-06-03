@@ -12,7 +12,7 @@
     ></div>
     <!-- 侧边菜单栏 -->
     <o-menu />
-
+    <Settings />
     <!-- 主体内容 -->
     <el-main
       :class="[layoutStore.collapse ? 'is-collapse' : '', layoutStore.mobile ? 'is-mobile' : '']"

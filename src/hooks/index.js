@@ -1,4 +1,5 @@
 export * from './useTable'
 export * from './useDelete'
+export * from './useDesign'
 export * from './useLoading'
 export * from './usePagination'
