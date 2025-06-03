@@ -5,7 +5,11 @@
       <o-header />
     </el-header>
     <!-- 手机端打开菜单遮罩 -->
-    <div v-if="mobile && !collapse" class="mobile-overlay" @click="handleClickOutside"></div>
+    <div
+      v-if="layoutStore.mobile && !layoutStore.collapse"
+      class="mobile-overlay"
+      @click="handleClickOutside"
+    ></div>
     <!-- 侧边菜单栏 -->
     <o-menu />
 

@@ -12,8 +12,7 @@ import { setCssVar } from '@/utils/global'
 import { useLayoutStore } from '@/stores'
 
 defineOptions({
-  name: 'ConfigGlobal',
-  inheritAttrs: true
+  name: 'ConfigGlobal'
 })
 const layoutStore = useLayoutStore()
 

@@ -1,48 +1,67 @@
 <template>
   <div class="home">
-    <h1>欢迎来到首页</h1>
-    <el-button type="primary" @click="handleClick">点击我</el-button>
-    <p v-if="message">{{ message }}</p>
+    <Hello />
+    <ElRow :gutter="20" justify="space-between">
+      <ElCol :xl="12" :lg="12" :md="24" :sm="24" :xs="24">
+        <el-card class="box-bottom">
+          <template #header>
+            <div class="card-header">
+              <span>星期统计2</span>
+            </div>
+          </template>
+          <o-echarts :option="weekOptions" />
+        </el-card>
+      </ElCol>
+      <ElCol :xl="12" :lg="12" :md="24" :sm="24" :xs="24">
+        <BaseContainer class="box-bottom" title="星期统计">
+          <template #right>
+            <a>新增</a>
+          </template>
+          <o-echarts :option="weekOptions" />
+        </BaseContainer>
+      </ElCol>
 
-    <!-- 使用封装好的 Swiper 和 ECharts 组件 -->
-    <o-swiper :slides="['幻灯片1', '幻灯片2', '幻灯片3']" />
-    <o-echarts :option="chartOption" />
+      <ElCol :xl="10" :lg="10" :md="24" :sm="24" :xs="24">
+        <ElCard shadow="hover" class="box-bottom">
+          <o-echarts :option="pieOptions" :height="300" />
+        </ElCard>
+      </ElCol>
+      <ElCol :xl="14" :lg="14" :md="24" :sm="24" :xs="24">
+        <ElCard shadow="hover" class="box-bottom">
+          <o-echarts :option="barOptions" :height="300" />
+        </ElCard>
+      </ElCol>
+      <ElCol :span="24">
+        <ElCard shadow="hover" class="box-bottom">
+          <o-echarts :option="lineOptions" :height="350" />
+        </ElCard>
+      </ElCol>
+    </ElRow>
+    <!-- <o-swiper :slides="['幻灯片1', '幻灯片2', '幻灯片3']" /> -->
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-
-const message = ref('')
-
-const handleClick = () => {
-  message.value = '你点击了按钮！'
-}
-
+import { getWeekOptions, getPieOptions, getBarOptions, getLineOptions } from './options'
+import Hello from './hello.vue'
 onMounted(() => {
   console.log('首页已加载')
 })
 
-const chartOption = ref({
-  xAxis: {
-    type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: [150, 230, 224, 218, 135, 147, 260],
-      type: 'line'
-    }
-  ]
-})
+const weekOptions = ref(getWeekOptions())
+const pieOptions = ref(getPieOptions())
+const barOptions = ref(getBarOptions())
+const lineOptions = ref(getLineOptions())
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .home {
   background-color: white;
   padding: 20px;
+
+  .box-bottom {
+    margin-bottom: 20px;
+  }
 }
 </style>
