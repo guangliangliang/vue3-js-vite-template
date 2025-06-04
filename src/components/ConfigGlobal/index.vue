@@ -10,7 +10,6 @@ import { ElConfigProvider } from 'element-plus'
 import { useWindowSize } from '@vueuse/core'
 import { setCssVar } from '@/utils/global'
 import { useLayoutStore } from '@/stores'
-
 defineOptions({
   name: 'ConfigGlobal'
 })

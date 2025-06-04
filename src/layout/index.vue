@@ -1,21 +1,28 @@
 <template>
   <el-container>
-    <!-- 头部 -->
-    <o-header />
+    <template v-if="layout === 'classic'">
+      <div class="sum-header">
+        <TitleLogo />
+        <o-header />
+      </div>
+      <o-menu />
+    </template>
+    <template v-if="layout === 'topLeft'">
+      <o-header />
+      <o-menu />
+    </template>
     <!-- 手机端打开菜单遮罩 -->
     <div
       v-if="layoutStore.mobile && !layoutStore.collapse"
       class="mobile-overlay"
       @click="handleClickOutside"
     ></div>
-    <!-- 侧边菜单栏 -->
-    <o-menu />
     <Settings />
     <!-- 主体内容 -->
     <el-main
       :class="[layoutStore.collapse ? 'is-collapse' : '', layoutStore.mobile ? 'is-mobile' : '']"
     >
-      <OTagsView />
+      <!-- <OTagsView /> -->
       <el-scrollbar class="main-scrollbar">
         <!-- 主体部分 -->
         <router-view />
@@ -29,10 +36,13 @@ import { useLayoutStore, useUserStore } from '@/stores'
 import OHeader from './Header.vue'
 import OMenu from './Menu/Menu.vue'
 import { getToken } from '@/utils/auth'
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
+import TitleLogo from '@/layout/TitleLogo.vue'
+// import OTagsView from './TagsView.vue'
+
 const layoutStore = useLayoutStore()
 const useStore = useUserStore()
-import OTagsView from './TagsView.vue'
+const layout = computed(() => layoutStore.getLayout())
 
 onMounted(() => {
   if (getToken()) {
@@ -51,9 +61,8 @@ const handleClickOutside = () => {
 
 .el-header {
   align-items: center;
-  background-color: #162746;
-  border-bottom: 1px solid rgb(255 255 255 / 10%);
-  color: #fff;
+  //background-color: #162746;
+  border-bottom: 1px solid var(--el-border-color);
   display: flex;
   justify-content: space-between;
   position: fixed;
@@ -63,6 +72,21 @@ const handleClickOutside = () => {
   p {
     line-height: 60px;
     margin: 0;
+  }
+}
+
+.sum-header {
+  border-bottom: 1px solid var(--el-border-color);
+  display: flex;
+  height: 60px;
+  position: fixed;
+  width: 100%;
+
+  :deep(.el-header) {
+    border-bottom: none;
+    flex: 1 1 0%;
+    position: relative;
+    width: auto;
   }
 }
 
@@ -78,6 +102,7 @@ const handleClickOutside = () => {
 
 .el-main {
   backface-visibility: hidden;
+  background-color: var(--app-content-bg-color);
   height: 100%;
   margin-left: var(--left-menu-max-width);
   margin-top: 60px;
@@ -91,6 +116,7 @@ const handleClickOutside = () => {
 html.dark {
   .el-header {
     background-color: var(--el-bg-color-overlay);
+    color: white;
   }
 
   .el-main {

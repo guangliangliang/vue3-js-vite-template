@@ -1,11 +1,10 @@
 <template>
   <el-header>
     <div class="header-left">
-      <el-icon class="collapse-icon" :size="25" color="#fff" @click="handleCollapse">
+      <el-icon class="collapse-icon" :size="25" @click="handleCollapse">
         <expand v-if="collapse" />
         <fold v-else />
       </el-icon>
-      <span class="title" v-text="baseTitle" />
     </div>
     <div class="header-right">
       <el-dropdown>
@@ -31,9 +30,7 @@ import { confirmBox } from '@/utils/elementPlus'
 import { clearLocal } from '@/utils/auth'
 import router from '@/router'
 import avatar from '@/icons/avatar.svg'
-import { baseTitle } from '@/config'
 import { ElMessage } from 'element-plus'
-
 defineOptions({
   name: 'OHeader'
 })
@@ -88,7 +85,6 @@ const handleLogout = () => {
     display: flex;
 
     .name {
-      color: white;
       margin-left: 8px;
     }
   }

@@ -6,6 +6,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 export default defineConfig({
   server: {
     host: true, // 或 '0.0.0.0'
+    strictPort: false, // 若端口被占用，自动 +1 找下一个可用端口
     port: 5173 // 你想用的端口
   },
   plugins: [

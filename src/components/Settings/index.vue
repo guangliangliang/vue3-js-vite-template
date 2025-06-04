@@ -11,7 +11,7 @@
       title="项目配置"
       direction="rtl"
       :z-index="4000"
-      size="400px"
+      size="350px"
     >
       <template #header>
         <span class="drawer-title">项目配置</span>
