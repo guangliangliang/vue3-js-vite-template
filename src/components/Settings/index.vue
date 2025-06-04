@@ -17,6 +17,9 @@
         <span class="drawer-title">项目配置</span>
       </template>
       <div class="drawer-body">
+        <!-- 主题 -->
+        <el-divider>黑夜主题</el-divider>
+        <ThemeSwitch />
         <!-- 布局 -->
         <el-divider>布局</el-divider>
         <LayoutRadioPicker />
@@ -46,10 +49,11 @@ import { ref } from 'vue'
 import { setCssVar } from '@/utils/global'
 import LayoutRadioPicker from './components/LayoutRadioPicker.vue'
 import ColorRadioPicker from './components/ColorRadioPicker.vue'
+import ThemeSwitch from './components/ThemeSwitch.vue'
 
 defineOptions({ name: 'Settings' })
 
-const drawerVisible = ref(true)
+const drawerVisible = ref(false)
 const systemTheme = ref()
 
 const setSystemTheme = (color) => {

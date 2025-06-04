@@ -23,7 +23,6 @@ const { user } = storeToRefs(userStore)
   }
 
   &-span {
-    color: #606266;
     font-size: 14px;
     margin-left: 10px;
   }

@@ -4,7 +4,7 @@ export const useDesign = () => {
    * @returns 返回空间名-类名
    */
   const getPrefixCls = (scope) => {
-    return `v-${scope}`
+    return `${scope}`
   }
 
   return {

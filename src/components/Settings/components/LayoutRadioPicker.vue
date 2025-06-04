@@ -8,26 +8,26 @@ const prefixCls = getPrefixCls('layout-radio-picker')
 
 const layoutStore = useLayoutStore()
 
-const layout = computed(() => layoutStore.getLayout)
+const layout = computed(() => layoutStore.getLayout())
 </script>
 
 <template>
   <div :class="prefixCls" class="layout-picker-wrapper">
     <div
       :class="[`${prefixCls}__classic`, 'layout-item', { 'is-acitve': layout === 'classic' }]"
-      @click="appStore.setLayout('classic')"
+      @click="layoutStore.setLayout('classic')"
     ></div>
     <div
       :class="[`${prefixCls}__top-left`, 'layout-item', { 'is-acitve': layout === 'topLeft' }]"
-      @click="appStore.setLayout('topLeft')"
+      @click="layoutStore.setLayout('topLeft')"
     ></div>
     <div
       :class="[`${prefixCls}__top`, 'layout-item', { 'is-acitve': layout === 'top' }]"
-      @click="appStore.setLayout('top')"
+      @click="layoutStore.setLayout('top')"
     ></div>
     <div
       :class="[`${prefixCls}__cut-menu`, 'layout-item', { 'is-acitve': layout === 'cutMenu' }]"
-      @click="appStore.setLayout('cutMenu')"
+      @click="layoutStore.setLayout('cutMenu')"
     >
       <div class="cut-menu-inner-bar"></div>
     </div>
@@ -71,12 +71,12 @@ $light-bg: #fff;
 }
 
 @function prefix($name) {
-  @return 'v-layout-radio-picker' + $name;
+  @return 'layout-radio-picker' + $name;
 }
 
 // 以下按原 Less 转换来的结构
 @at-root {
-  .v-layout-radio-picker__classic {
+  .layout-radio-picker__classic {
     &::before {
       background-color: $dark-bg;
       border-radius: 4px 0 0 4px;
@@ -101,7 +101,7 @@ $light-bg: #fff;
     }
   }
 
-  .v-layout-radio-picker__top-left {
+  .layout-radio-picker__top-left {
     &::before {
       background-color: $dark-bg;
       border-radius: 4px 4px 0 0;
@@ -126,7 +126,7 @@ $light-bg: #fff;
     }
   }
 
-  .v-layout-radio-picker__top {
+  .layout-radio-picker__top {
     &::before {
       background-color: $dark-bg;
       border-radius: 4px 4px 0 0;
@@ -140,7 +140,7 @@ $light-bg: #fff;
     }
   }
 
-  .v-layout-radio-picker__cut-menu {
+  .layout-radio-picker__cut-menu {
     &::before {
       background-color: $dark-bg;
       border-radius: 4px 4px 0 0;

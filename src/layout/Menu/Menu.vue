@@ -68,6 +68,12 @@ watch(
   z-index: 2000;
 }
 
+html.dark {
+  .menu-container {
+    background-color: var(--el-bg-color-overlay);
+  }
+}
+
 .el-menu {
   border-right: 0;
   width: var(--left-menu-min-width);

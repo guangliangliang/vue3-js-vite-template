@@ -63,4 +63,15 @@ defineProps({
     padding: 20px;
   }
 }
+
+html.dark {
+  .base-container {
+    background-color: var(--el-bg-color-overlay);
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    .default-title {
+      color: white !important;
+    }
+  }
+}
 </style>

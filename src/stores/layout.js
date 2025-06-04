@@ -1,9 +1,11 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useDark } from '@vueuse/core'
 
 export const useLayoutStore = defineStore('layout', () => {
   const collapse = ref(false) // 折叠菜单
   const mobile = ref(false) // 是否是移动端
+  const isDark = ref(false) // 是否是暗黑模式
   const layout = ref('classic') // 是否是移动端
   const title = ref(import.meta.env.VITE_APP_TITLE) // 标题
   const setCollapse = (value) => {
@@ -16,10 +18,30 @@ export const useLayoutStore = defineStore('layout', () => {
     return mobile.value
   }
   const setLayout = (value) => {
-    mobile.value = value
+    layout.value = value
   }
   const getLayout = () => {
     return layout.value
+  }
+  const setIsDark = (value) => {
+    isDark.value = value
+    if (value) {
+      document.documentElement.classList.add('dark')
+      document.documentElement.classList.remove('light')
+    } else {
+      document.documentElement.classList.add('light')
+      document.documentElement.classList.remove('dark')
+    }
+  }
+  const getIsDark = () => {
+    return isDark.value
+  }
+  const initTheme = () => {
+    const isDark = useDark({
+      valueDark: 'dark',
+      valueLight: 'light'
+    })
+    isDark.value = getIsDark()
   }
 
   return {
@@ -31,6 +53,9 @@ export const useLayoutStore = defineStore('layout', () => {
     setLayout,
     getMobile,
     setMobile,
-    setCollapse
+    getIsDark,
+    setIsDark,
+    setCollapse,
+    initTheme
   }
 })

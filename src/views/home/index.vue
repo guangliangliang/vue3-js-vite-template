@@ -57,7 +57,6 @@ const lineOptions = ref(getLineOptions())
 
 <style lang="scss" scoped>
 .home {
-  background-color: white;
   padding: 20px;
 
   .box-bottom {

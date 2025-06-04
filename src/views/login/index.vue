@@ -163,6 +163,7 @@ function handleFinish() {
 
   .footer {
     bottom: 0;
+    color: rgb(0 0 0 / 45%);
     margin: 48px 0 24px;
     padding: 0 16px;
     text-align: center;
@@ -173,7 +174,6 @@ function handleFinish() {
       margin-bottom: 8px;
 
       a {
-        color: rgb(0 0 0 / 45%);
         transition: all 0.3s;
 
         &:not(:last-child) {
@@ -183,9 +183,14 @@ function handleFinish() {
     }
 
     .copyright {
-      color: rgb(0 0 0 / 45%);
       font-size: 14px;
     }
+  }
+}
+
+html.dark {
+  .footer {
+    color: white !important;
   }
 }
 
