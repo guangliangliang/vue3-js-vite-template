@@ -8,8 +8,14 @@
       <o-menu />
     </template>
     <template v-if="layout === 'topLeft'">
-      <o-header />
-      <o-menu />
+      <o-header
+        class="top-left-header"
+        :class="[layoutStore.collapse ? 'top-left-header-collapse' : '']"
+      />
+      <div class="sum-menu" :class="[layoutStore.collapse ? 'sum-menu-is-collapse' : '']">
+        <TitleLogo />
+        <o-menu />
+      </div>
     </template>
     <!-- 手机端打开菜单遮罩 -->
     <div
@@ -75,6 +81,45 @@ const handleClickOutside = () => {
   }
 }
 
+.top-left-header {
+  left: var(--left-menu-max-width);
+  width: calc(100% - var(--left-menu-max-width));
+}
+
+.top-left-header-collapse {
+  left: var(--left-menu-min-width);
+  width: calc(100% - var(--left-menu-min-width));
+}
+
+.sum-menu {
+  border-right: 1px solid var(--el-border-color);
+  height: 100%;
+  position: absolute;
+  width: var(--left-menu-max-width);
+
+  .menu-container {
+    border-right: none;
+    box-shadow: unset;
+  }
+
+  :deep(.el-menu) {
+    background-color: unset;
+  }
+
+  .logo-title {
+    height: 60px;
+    justify-content: flex-start;
+  }
+}
+
+.sum-menu-is-collapse {
+  width: var(--left-menu-min-width);
+
+  :deep(.logo-title .title) {
+    display: none;
+  }
+}
+
 .sum-header {
   border-bottom: 1px solid var(--el-border-color);
   display: flex;
@@ -83,7 +128,6 @@ const handleClickOutside = () => {
   width: 100%;
 
   :deep(.el-header) {
-    border-bottom: none;
     flex: 1 1 0%;
     position: relative;
     width: auto;

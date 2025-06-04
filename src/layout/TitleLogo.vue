@@ -14,7 +14,7 @@ import logoSrc from '@/assets/images/login/logo.png'
 
 <style scoped lang="scss">
 .logo-title {
-  padding: 1px 10px 0;
+  padding: 0 10px;
 
   @include flex-center;
 
@@ -26,11 +26,19 @@ import logoSrc from '@/assets/images/login/logo.png'
   }
 
   img {
-    width: 30px;
+    width: 38px;
   }
 
   .title {
+    font-size: 22px;
     margin: 0 12px 0 5px;
+  }
+}
+
+html.dark {
+  .logo-title {
+    background-color: var(--el-bg-color-overlay);
+    color: white;
   }
 }
 </style>
