@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: my-nginx
+    ports:
+      - '8888:80' # 本机 8888 映射到容器的 80
+    volumes:
+      - E:/docker-volume/nginx.conf:/etc/nginx/nginx.conf:ro
+      - F:/gllProject/typhoonCheckout/code/vue3-js-vite-template/dist:/usr/share/nginx/html
+    restart: always
+# docker-compose down
+# docker-compose up -d
