@@ -1,24 +1,26 @@
 <template>
-  <div class="header-left">
-    <el-icon class="collapse-icon" :size="25" color="#fff" @click="handleCollapse">
-      <expand v-if="collapse" />
-      <fold v-else />
-    </el-icon>
-    <span class="title" v-text="baseTitle" />
-  </div>
-  <div class="header-right">
-    <el-dropdown>
-      <div class="user-dropdown">
-        <el-avatar :src="user.avatar || avatar" />
-        <span class="name">{{ user.name }}</span>
-      </div>
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
-        </el-dropdown-menu>
-      </template>
-    </el-dropdown>
-  </div>
+  <el-header>
+    <div class="header-left">
+      <el-icon class="collapse-icon" :size="25" color="#fff" @click="handleCollapse">
+        <expand v-if="collapse" />
+        <fold v-else />
+      </el-icon>
+      <span class="title" v-text="baseTitle" />
+    </div>
+    <div class="header-right">
+      <el-dropdown>
+        <div class="user-dropdown">
+          <el-avatar :src="user.avatar || avatar" />
+          <span class="name">{{ user.name }}</span>
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
+  </el-header>
 </template>
 
 <script setup>

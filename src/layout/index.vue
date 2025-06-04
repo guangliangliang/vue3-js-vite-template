@@ -1,9 +1,7 @@
 <template>
   <el-container>
     <!-- 头部 -->
-    <el-header>
-      <o-header />
-    </el-header>
+    <o-header />
     <!-- 手机端打开菜单遮罩 -->
     <div
       v-if="layoutStore.mobile && !layoutStore.collapse"
@@ -17,6 +15,7 @@
     <el-main
       :class="[layoutStore.collapse ? 'is-collapse' : '', layoutStore.mobile ? 'is-mobile' : '']"
     >
+      <OTagsView />
       <el-scrollbar class="main-scrollbar">
         <!-- 主体部分 -->
         <router-view />
@@ -33,6 +32,8 @@ import { getToken } from '@/utils/auth'
 import { onMounted } from 'vue'
 const layoutStore = useLayoutStore()
 const useStore = useUserStore()
+import OTagsView from './TagsView.vue'
+
 onMounted(() => {
   if (getToken()) {
     useStore.getUser()
@@ -85,6 +86,16 @@ const handleClickOutside = () => {
   perspective: none;
   position: relative;
   transition: 0.3s margin-left ease-in-out;
+}
+
+html.dark {
+  .el-header {
+    background-color: var(--el-bg-color-overlay);
+  }
+
+  .el-main {
+    background-color: var(--el-bg-color-overlay);
+  }
 }
 
 .mobile-overlay {

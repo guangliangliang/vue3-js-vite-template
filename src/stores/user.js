@@ -1,9 +1,9 @@
-import { ref } from 'vue'
+import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { getUserInfo } from '@/api/login'
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref({
+  const user = reactive({
     name: '',
     sex: '',
     mobile: ''
@@ -16,14 +16,18 @@ export const useUserStore = defineStore('user', () => {
       updateUser(res.data)
     }
   }
+  const getUserObj = () => {
+    return this.user
+  }
 
   const updateUser = (payload) => {
-    Object.assign(user.value, payload)
+    Object.assign(user, payload)
   }
 
   return {
     user,
     getUser,
+    getUserObj,
     updateUser
   }
 })

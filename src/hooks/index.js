@@ -1,5 +1,7 @@
 export * from './useTable'
 export * from './useDelete'
 export * from './useDesign'
+export * from './useScrollTo'
+export * from './useTagsView'
 export * from './useLoading'
 export * from './usePagination'
