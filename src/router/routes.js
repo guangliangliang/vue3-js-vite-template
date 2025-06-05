@@ -30,6 +30,7 @@ const routes = [
         component: () => import('@/views/home/index.vue'),
         meta: {
           title: '首页',
+          icon: 'HomeFilled',
           activePath: '/home'
         }
       }
@@ -52,6 +53,7 @@ Object.keys(routeModuleFiles).forEach((key) => {
   if (Array.isArray(module.default)) {
     module.default.forEach((route) => {
       routes[1].children.push(route)
+      // routes.push(route)
     })
   }
 })

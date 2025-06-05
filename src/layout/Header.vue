@@ -5,6 +5,7 @@
         <expand v-if="collapse" />
         <fold v-else />
       </el-icon>
+      <OBreadcrumb />
     </div>
     <div class="header-right">
       <el-dropdown>
@@ -26,6 +27,7 @@
 import { storeToRefs } from 'pinia'
 import { logout } from '@/api/login'
 import { useAppStore, useUserStore } from '@/stores'
+import OBreadcrumb from './Breadcrumb/index.vue'
 import { confirmBox } from '@/utils/elementPlus'
 import { clearLocal } from '@/utils/auth'
 import router from '@/router'

@@ -81,3 +81,13 @@ export function isSet(value) {
 export function isMap(value) {
   return typeOf(value) === 'map'
 }
+
+export const isUrl = (path) => {
+  try {
+    new URL(path)
+    return true
+  } catch (error) {
+    console.log(error, 'error')
+    return false
+  }
+}
