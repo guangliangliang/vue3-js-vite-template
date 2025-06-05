@@ -57,7 +57,7 @@ watch(
 
 <style lang="scss" scoped>
 .menu-container {
-  background-color: var(--el-bg-color-overlay);
+  //background-color: var(--el-bg-color-overlay);
   border-right: 1px solid var(--el-border-color);
   bottom: 0;
   box-shadow: 0 2px 10px 0 rgb(0 0 0 / 10%);

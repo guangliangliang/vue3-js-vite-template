@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { defineStore } from 'pinia'
 import searchConfig from '@/assets/enum/search'
 
@@ -24,20 +24,26 @@ export const useSearchStore = defineStore('search', () => {
   const searchReady = ref(false) // 控制是否可以请求列表
   const searchList = ref([])
 
+  const getSearchReady = () => {
+    return searchReady.value
+  }
   const getSearchList = async () => {
+    console.log('valvalval')
+
     searchReady.value = false
     const searchId = searchConfig[location.pathname]
-    if (!searchId) {
-      searchReady.value = true
-    } else {
+    if (searchId) {
       searchList.value = searchInfoObj[searchId] || []
-      searchReady.value = true
     }
+    nextTick(() => {
+      searchReady.value = true
+    })
   }
 
   return {
     searchList,
     searchReady,
+    getSearchReady,
     getSearchList
   }
 })

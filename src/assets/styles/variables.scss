@@ -1,3 +1,5 @@
 $primary-color: #42b983;
 $font-size-base: 16px;
 $padding-base: 16px;
+
+@use 'element-plus/theme-chalk/src/index.scss' as *;

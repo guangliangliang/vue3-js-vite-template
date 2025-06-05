@@ -10,6 +10,24 @@
 <script setup>
 import { baseTitle } from '@/config'
 import logoSrc from '@/assets/images/login/logo.png'
+import { computed, ref, watch, unref } from 'vue'
+import { useLayoutStore } from '@/stores'
+const layoutStore = useLayoutStore()
+const layout = computed(() => layoutStore.getLayout)
+const collapse = computed(() => layoutStore.getCollapse)
+
+const show = ref(true)
+watch(
+  () => collapse.value,
+  (collapse) => {
+    if (unref(layout) === 'topLeft') {
+      show.value = true
+      return
+    } else {
+      show.value = !collapse
+    }
+  }
+)
 </script>
 
 <style scoped lang="scss">

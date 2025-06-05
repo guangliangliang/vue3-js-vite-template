@@ -116,6 +116,7 @@ const onConfirm = throttle(() => {
 
 .form-btn-warp {
   backface-visibility: hidden;
+  background-color: white;
   border-radius: 4px;
   bottom: 0;
   box-shadow: 0 1px 12px 0 rgb(0 0 0 / 5%);
@@ -133,6 +134,12 @@ const onConfirm = throttle(() => {
 
   .ml-4 {
     margin-left: 1rem;
+  }
+}
+
+html.dark {
+  .form-btn-warp {
+    background-color: var(--el-bg-color-overlay);
   }
 }
 </style>

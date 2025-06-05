@@ -1,21 +1,34 @@
 <template>
   <el-container>
     <template v-if="layout === 'classic'">
+      <o-header
+        :class="{
+          'top-left-header': !layoutStore.mobile,
+          'top-left-header-collapse': layoutStore.collapse && !layoutStore.mobile
+        }"
+      />
+      <div
+        :class="{
+          'sum-menu': true,
+          'sum-menu-is-collapse': layoutStore.collapse,
+          'sum-menu-is-mobile': layoutStore.mobile
+        }"
+      >
+        <TitleLogo />
+        <o-menu />
+      </div>
+    </template>
+    <template v-if="layout === 'topLeft'">
       <div class="sum-header">
         <TitleLogo />
         <o-header />
       </div>
-      <o-menu />
-    </template>
-    <template v-if="layout === 'topLeft'">
-      <o-header
-        class="top-left-header"
-        :class="[layoutStore.collapse ? 'top-left-header-collapse' : '']"
+      <o-menu
+        style="position: absolute"
+        :class="{
+          'classic-menu-is-mobile': layoutStore.mobile
+        }"
       />
-      <div class="sum-menu" :class="[layoutStore.collapse ? 'sum-menu-is-collapse' : '']">
-        <TitleLogo />
-        <o-menu />
-      </div>
     </template>
     <!-- 手机端打开菜单遮罩 -->
     <div
@@ -95,11 +108,13 @@ const handleClickOutside = () => {
   border-right: 1px solid var(--el-border-color);
   height: 100%;
   position: absolute;
+  transition: all 0.3s;
   width: var(--left-menu-max-width);
 
   .menu-container {
     border-right: none;
     box-shadow: unset;
+    top: 0;
   }
 
   :deep(.el-menu) {
@@ -109,15 +124,50 @@ const handleClickOutside = () => {
   .logo-title {
     height: 60px;
     justify-content: flex-start;
+    transition: all 0.3s;
+    width: var(--left-menu-max-width);
+  }
+
+  :deep(.logo-title .title) {
+    opacity: 1;
+    pointer-events: auto;
+    transition-delay: 0.3s; // 延迟展示
+    transition-duration: 0s; // 无动画渐变
+  }
+}
+
+.sum-menu-is-mobile {
+  background: white;
+  z-index: 9999;
+}
+
+.sum-menu-is-collapse.sum-menu-is-mobile {
+  // 同时存在两个类时生效
+  .logo-title {
+    opacity: 0;
+    pointer-events: none;
   }
 }
 
 .sum-menu-is-collapse {
   width: var(--left-menu-min-width);
 
-  :deep(.logo-title .title) {
-    display: none;
+  /* stylelint-disable-next-line no-descending-specificity */
+  .logo-title {
+    width: var(--left-menu-min-width);
   }
+
+  :deep(.logo-title .title) {
+    opacity: 0;
+    pointer-events: none;
+    transition-delay: 0s;
+    transition-duration: 0s; // 立即隐藏
+    // display: none;
+  }
+}
+
+.classic-menu-is-mobile {
+  background-color: var(--el-bg-color-overlay);
 }
 
 .sum-header {

@@ -46,20 +46,21 @@
 
 <script setup>
 import { ref } from 'vue'
-import { setCssVar } from '@/utils/global'
+import { useElementPlusTheme } from '@/hooks'
 import LayoutRadioPicker from './components/LayoutRadioPicker.vue'
 import ColorRadioPicker from './components/ColorRadioPicker.vue'
 import ThemeSwitch from './components/ThemeSwitch.vue'
+import { useLayoutStore } from '@/stores'
+const appStore = useLayoutStore()
 
 defineOptions({ name: 'Settings' })
 
 const drawerVisible = ref(false)
 const systemTheme = ref()
-
+const { changeTheme } = useElementPlusTheme()
 const setSystemTheme = (color) => {
-  setCssVar('--el-color-primary', color)
-  setCssVar('--el-color-primary-hover', color)
-  // appStore.setTheme({ elColorPrimary: color })
+  appStore.setTheme(color)
+  changeTheme(color)
 }
 </script>
 

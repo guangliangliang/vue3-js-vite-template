@@ -64,6 +64,12 @@ button:focus-visible {
   width: 100%;
 }
 
+html.dark {
+  #app {
+    background-color: var(--el-bg-color-overlay);
+  }
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     background-color: #fff;

@@ -8,6 +8,13 @@ export const useLayoutStore = defineStore('layout', () => {
   const isDark = ref(false) // 是否是暗黑模式
   const layout = ref('classic') // 是否是移动端
   const title = ref(import.meta.env.VITE_APP_TITLE) // 标题
+  const theme = ref('#409eff')
+  const getTheme = () => {
+    return theme.value
+  }
+  const setTheme = (value) => {
+    theme.value = value
+  }
   const setCollapse = (value) => {
     collapse.value = value
   }
@@ -49,6 +56,9 @@ export const useLayoutStore = defineStore('layout', () => {
     title,
     mobile,
     collapse,
+    theme,
+    setTheme,
+    getTheme,
     getLayout,
     setLayout,
     getMobile,

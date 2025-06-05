@@ -21,7 +21,7 @@ const layout = computed(() => layoutStore.getLayout())
       :class="[`${prefixCls}__top-left`, 'layout-item', { 'is-acitve': layout === 'topLeft' }]"
       @click="layoutStore.setLayout('topLeft')"
     ></div>
-    <div
+    <!-- <div
       :class="[`${prefixCls}__top`, 'layout-item', { 'is-acitve': layout === 'top' }]"
       @click="layoutStore.setLayout('top')"
     ></div>
@@ -30,7 +30,7 @@ const layout = computed(() => layoutStore.getLayout())
       @click="layoutStore.setLayout('cutMenu')"
     >
       <div class="cut-menu-inner-bar"></div>
-    </div>
+    </div> -->
   </div>
 </template>
 

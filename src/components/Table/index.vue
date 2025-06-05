@@ -155,6 +155,7 @@ watch([() => pagination.page, () => pagination.page_size], dispatchLoad)
 watch(
   () => searchReady.value,
   (val) => {
+    console.log(val, 'valvalval')
     if (val) {
       dispatchLoad()
     }
