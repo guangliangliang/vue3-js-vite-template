@@ -25,7 +25,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { logout } from '@/api/login'
-import { useLayoutStore, useUserStore } from '@/stores'
+import { useAppStore, useUserStore } from '@/stores'
 import { confirmBox } from '@/utils/elementPlus'
 import { clearLocal } from '@/utils/auth'
 import router from '@/router'
@@ -36,13 +36,13 @@ defineOptions({
 })
 
 const userStore = useUserStore()
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 
 const { user } = storeToRefs(userStore)
-const { collapse } = storeToRefs(layoutStore)
+const { collapse } = storeToRefs(appStore)
 
 const handleCollapse = () => {
-  layoutStore.setCollapse(!layoutStore.collapse)
+  appStore.setCollapse(!appStore.collapse)
 }
 
 const handleLogout = () => {

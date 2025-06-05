@@ -11,7 +11,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 import { ElSwitch } from 'element-plus'
 import { useDesign } from '@/hooks'
 
@@ -21,7 +21,7 @@ const emit = defineEmits(['change'])
 
 const prefixCls = getPrefixCls('theme-switch')
 
-const appStore = useLayoutStore()
+const appStore = useAppStore()
 
 const isDark = computed({
   get() {

@@ -3,15 +3,15 @@
     <template v-if="layout === 'classic'">
       <o-header
         :class="{
-          'top-left-header': !layoutStore.mobile,
-          'top-left-header-collapse': layoutStore.collapse && !layoutStore.mobile
+          'top-left-header': !appStore.mobile,
+          'top-left-header-collapse': appStore.collapse && !appStore.mobile
         }"
       />
       <div
         :class="{
           'sum-menu': true,
-          'sum-menu-is-collapse': layoutStore.collapse,
-          'sum-menu-is-mobile': layoutStore.mobile
+          'sum-menu-is-collapse': appStore.collapse,
+          'sum-menu-is-mobile': appStore.mobile
         }"
       >
         <TitleLogo />
@@ -26,21 +26,19 @@
       <o-menu
         style="position: absolute"
         :class="{
-          'classic-menu-is-mobile': layoutStore.mobile
+          'classic-menu-is-mobile': appStore.mobile
         }"
       />
     </template>
     <!-- 手机端打开菜单遮罩 -->
     <div
-      v-if="layoutStore.mobile && !layoutStore.collapse"
+      v-if="appStore.mobile && !appStore.collapse"
       class="mobile-overlay"
       @click="handleClickOutside"
     ></div>
     <Settings />
     <!-- 主体内容 -->
-    <el-main
-      :class="[layoutStore.collapse ? 'is-collapse' : '', layoutStore.mobile ? 'is-mobile' : '']"
-    >
+    <el-main :class="[appStore.collapse ? 'is-collapse' : '', appStore.mobile ? 'is-mobile' : '']">
       <!-- <OTagsView /> -->
       <el-scrollbar class="main-scrollbar">
         <!-- 主体部分 -->
@@ -51,7 +49,7 @@
 </template>
 
 <script setup>
-import { useLayoutStore, useUserStore } from '@/stores'
+import { useAppStore, useUserStore } from '@/stores'
 import OHeader from './Header.vue'
 import OMenu from './Menu/Menu.vue'
 import { getToken } from '@/utils/auth'
@@ -59,9 +57,9 @@ import { onMounted, computed } from 'vue'
 import TitleLogo from '@/layout/TitleLogo.vue'
 // import OTagsView from './TagsView.vue'
 
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 const useStore = useUserStore()
-const layout = computed(() => layoutStore.getLayout())
+const layout = computed(() => appStore.getLayout())
 
 onMounted(() => {
   if (getToken()) {
@@ -69,7 +67,7 @@ onMounted(() => {
   }
 })
 const handleClickOutside = () => {
-  layoutStore.setCollapse(true)
+  appStore.setCollapse(true)
 }
 </script>
 

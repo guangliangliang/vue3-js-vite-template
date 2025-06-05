@@ -50,8 +50,8 @@ import { useElementPlusTheme } from '@/hooks'
 import LayoutRadioPicker from './components/LayoutRadioPicker.vue'
 import ColorRadioPicker from './components/ColorRadioPicker.vue'
 import ThemeSwitch from './components/ThemeSwitch.vue'
-import { useLayoutStore } from '@/stores'
-const appStore = useLayoutStore()
+import { useAppStore } from '@/stores'
+const appStore = useAppStore()
 
 defineOptions({ name: 'Settings' })
 

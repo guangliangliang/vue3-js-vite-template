@@ -11,10 +11,10 @@
 import { baseTitle } from '@/config'
 import logoSrc from '@/assets/images/login/logo.png'
 import { computed, ref, watch, unref } from 'vue'
-import { useLayoutStore } from '@/stores'
-const layoutStore = useLayoutStore()
-const layout = computed(() => layoutStore.getLayout)
-const collapse = computed(() => layoutStore.getCollapse)
+import { useAppStore } from '@/stores'
+const appStore = useAppStore()
+const layout = computed(() => appStore.getLayout)
+const collapse = computed(() => appStore.getCollapse)
 
 const show = ref(true)
 watch(

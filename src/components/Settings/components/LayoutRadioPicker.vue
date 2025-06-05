@@ -1,33 +1,33 @@
 <script setup>
 import { computed } from 'vue'
-import { useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 import { useDesign } from '@/hooks'
 
 const { getPrefixCls } = useDesign()
 const prefixCls = getPrefixCls('layout-radio-picker')
 
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 
-const layout = computed(() => layoutStore.getLayout())
+const layout = computed(() => appStore.getLayout())
 </script>
 
 <template>
   <div :class="prefixCls" class="layout-picker-wrapper">
     <div
       :class="[`${prefixCls}__classic`, 'layout-item', { 'is-acitve': layout === 'classic' }]"
-      @click="layoutStore.setLayout('classic')"
+      @click="appStore.setLayout('classic')"
     ></div>
     <div
       :class="[`${prefixCls}__top-left`, 'layout-item', { 'is-acitve': layout === 'topLeft' }]"
-      @click="layoutStore.setLayout('topLeft')"
+      @click="appStore.setLayout('topLeft')"
     ></div>
     <!-- <div
       :class="[`${prefixCls}__top`, 'layout-item', { 'is-acitve': layout === 'top' }]"
-      @click="layoutStore.setLayout('top')"
+      @click="appStore.setLayout('top')"
     ></div>
     <div
       :class="[`${prefixCls}__cut-menu`, 'layout-item', { 'is-acitve': layout === 'cutMenu' }]"
-      @click="layoutStore.setLayout('cutMenu')"
+      @click="appStore.setLayout('cutMenu')"
     >
       <div class="cut-menu-inner-bar"></div>
     </div> -->

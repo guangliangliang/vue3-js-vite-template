@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar class="menu-container">
-    <el-menu :collapse="layoutStore.collapse" :default-active="activeMenu" unique-opened>
+    <el-menu :collapse="appStore.collapse" :default-active="activeMenu" unique-opened>
       <o-menu-item :menu-list="menuList" />
     </el-menu>
   </el-scrollbar>
@@ -9,7 +9,7 @@
 <script setup>
 import { onBeforeMount, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 import OMenuItem from './MenuItem.vue'
 
 defineOptions({
@@ -17,7 +17,7 @@ defineOptions({
 })
 
 const route = useRoute()
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 
 const activeMenu = ref('')
 const menuList = ref([

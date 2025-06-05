@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useDark } from '@vueuse/core'
 
-export const useLayoutStore = defineStore('layout', () => {
+export const useAppStore = defineStore('app', () => {
   const collapse = ref(false) // 折叠菜单
   const mobile = ref(false) // 是否是移动端
   const isDark = ref(false) // 是否是暗黑模式

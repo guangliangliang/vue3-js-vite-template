@@ -30,7 +30,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { throttle } from 'lodash-es'
-import { useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 
 // props
 defineOptions({ name: 'OFormWrap' })
@@ -73,11 +73,11 @@ const props = defineProps({
 const emit = defineEmits(['confirm'])
 
 const loading = ref(false)
-const layoutStore = useLayoutStore()
+const appStore = useAppStore()
 
 const footerLeftStyle = computed(() => {
   return {
-    left: layoutStore.mobile ? '10px' : layoutStore.collapse ? '74px' : '230px'
+    left: appStore.mobile ? '10px' : appStore.collapse ? '74px' : '230px'
   }
 })
 

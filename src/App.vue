@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useLayoutStore } from '@/stores'
+import { useAppStore } from '@/stores'
 onMounted(() => {
-  const layoutStore = useLayoutStore()
-  layoutStore.initTheme()
+  const appStore = useAppStore()
+  appStore.initTheme()
 })
 </script>
 
