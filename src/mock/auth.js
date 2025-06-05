@@ -1,5 +1,11 @@
 import Mock from 'mockjs'
 
+Mock.mock('/register', 'post', {
+  code: 200,
+  message: 'OK',
+  data: 'token'
+})
+
 Mock.mock('/login', 'post', {
   code: 200,
   message: 'OK',
