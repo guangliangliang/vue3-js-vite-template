@@ -44,7 +44,7 @@
           :on-exceed="onExceed"
         >
           <img v-if="formData.avatar" :src="formData.avatar" class="avatar" />
-          <el-icon v-else><Plus /></el-icon>
+          <BaseIcon :icon="'Plus'" v-else />
         </el-upload>
       </el-form-item>
     </el-form>
@@ -55,7 +55,6 @@
 import { ref, reactive, onBeforeMount, computed } from 'vue'
 import { ElMessage, genFileId } from 'element-plus'
 import { useRoute, useRouter } from 'vue-router'
-import { Plus } from '@element-plus/icons-vue'
 
 import { baseURL } from '@/utils/request'
 import { useUserStore } from '@/stores'

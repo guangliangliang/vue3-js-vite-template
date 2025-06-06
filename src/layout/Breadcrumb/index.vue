@@ -8,9 +8,7 @@
         class="breadcrumb-item"
       >
         <div class="breadcrumb-item-inner">
-          <el-icon v-if="item.meta.icon">
-            <component :is="item.meta.icon" />
-          </el-icon>
+          <BaseIcon :icon="item.meta.icon" v-if="item.meta.icon" />
           <span>{{ item.meta?.title || '' }}</span>
         </div>
       </el-breadcrumb-item>

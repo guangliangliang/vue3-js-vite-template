@@ -5,16 +5,12 @@
       :index="item.path"
       @click="handleSelect(item)"
     >
-      <el-icon v-if="item.icon">
-        <component :is="item.icon" />
-      </el-icon>
+      <BaseIcon :icon="item.icon" v-if="item.icon" />
       <template #title>{{ item.name }}</template>
     </el-menu-item>
     <el-sub-menu v-else :index="item.name">
       <template #title>
-        <el-icon v-if="item.icon">
-          <component :is="item.icon" />
-        </el-icon>
+        <BaseIcon :icon="item.icon" v-if="item.icon" />
         <span>{{ item.name }}</span>
       </template>
       <!--  如果有子级数据使用递归组件 -->

@@ -2,7 +2,7 @@
   <div>
     <!-- 固定在右侧中间的按钮 -->
     <div class="fixed-trigger" @click="drawerVisible = true">
-      <el-icon size="24"><Setting /></el-icon>
+      <BaseIcon :size="24" :icon="'Setting'" />
     </div>
 
     <!-- 抽屉 -->

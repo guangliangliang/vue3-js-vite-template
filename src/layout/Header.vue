@@ -1,10 +1,7 @@
 <template>
   <el-header>
     <div class="header-left">
-      <el-icon class="collapse-icon" :size="25" @click="handleCollapse">
-        <expand v-if="collapse" />
-        <fold v-else />
-      </el-icon>
+      <BaseIcon :size="24" :icon="collapse ? 'expand' : 'fold'" @click="handleCollapse" />
       <OBreadcrumb />
     </div>
     <div class="header-right">
