@@ -8,7 +8,7 @@ const prefixCls = getPrefixCls('layout-radio-picker')
 
 const appStore = useAppStore()
 
-const layout = computed(() => appStore.getLayout())
+const layout = computed(() => appStore.getLayout)
 </script>
 
 <template>

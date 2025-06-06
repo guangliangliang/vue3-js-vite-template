@@ -22,11 +22,11 @@ watch(
   () => width.value,
   (width) => {
     if (width < 768) {
-      if (!appStore.getMobile()) appStore.setMobile(true)
+      if (!appStore.getMobile) appStore.setMobile(true)
       setCssVar('--left-menu-min-width', '0')
       appStore.setCollapse(true)
     } else {
-      if (appStore.getMobile()) appStore.setMobile(false)
+      if (appStore.getMobile) appStore.setMobile(false)
       setCssVar('--left-menu-min-width', '64px')
     }
   },

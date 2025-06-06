@@ -25,7 +25,7 @@ const appStore = useAppStore()
 
 const isDark = computed({
   get() {
-    return appStore.getIsDark()
+    return appStore.getIsDark
   },
   set(val) {
     appStore.setIsDark(val)

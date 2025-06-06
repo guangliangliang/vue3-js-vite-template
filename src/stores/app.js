@@ -1,71 +1,53 @@
-import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useDark } from '@vueuse/core'
 
-export const useAppStore = defineStore('app', () => {
-  const collapse = ref(false) // 折叠菜单
-  const mobile = ref(false) // 是否是移动端
-  const isDark = ref(false) // 是否是暗黑模式
-  const layout = ref('classic') // 是否是移动端
-  const title = ref(import.meta.env.VITE_APP_TITLE) // 标题
-  const theme = ref('#409eff')
-  const getTheme = () => {
-    return theme.value
-  }
-  const setTheme = (value) => {
-    theme.value = value
-  }
-  const setCollapse = (value) => {
-    collapse.value = value
-  }
-  const setMobile = (value) => {
-    mobile.value = value
-  }
-  const getMobile = () => {
-    return mobile.value
-  }
-  const setLayout = (value) => {
-    layout.value = value
-  }
-  const getLayout = () => {
-    return layout.value
-  }
-  const setIsDark = (value) => {
-    isDark.value = value
-    if (value) {
-      document.documentElement.classList.add('dark')
-      document.documentElement.classList.remove('light')
-    } else {
-      document.documentElement.classList.add('light')
-      document.documentElement.classList.remove('dark')
+export const useAppStore = defineStore('app', {
+  state: () => ({
+    collapse: false, // 折叠菜单
+    mobile: false, // 是否是移动端
+    isDark: false, // 暗黑模式
+    layout: 'classic', // 布局模式
+    title: import.meta.env.VITE_APP_TITLE, // 标题
+    theme: '#409eff' // 主题颜色
+  }),
+  getters: {
+    getCollapse: (state) => state.collapse,
+    getTheme: (state) => state.theme,
+    getMobile: (state) => state.mobile,
+    getLayout: (state) => state.layout,
+    getIsDark: (state) => state.isDark
+  },
+  actions: {
+    setCollapse(value) {
+      this.collapse = value
+    },
+    setMobile(value) {
+      this.mobile = value
+    },
+    setLayout(value) {
+      this.layout = value
+    },
+    setTheme(value) {
+      this.theme = value
+    },
+    setIsDark(value) {
+      this.isDark = value
+      const html = document.documentElement
+      if (value) {
+        html.classList.add('dark')
+        html.classList.remove('light')
+      } else {
+        html.classList.add('light')
+        html.classList.remove('dark')
+      }
+    },
+    initTheme() {
+      const isDark = useDark({
+        valueDark: 'dark',
+        valueLight: 'light'
+      })
+      isDark.value = this.isDark
     }
-  }
-  const getIsDark = () => {
-    return isDark.value
-  }
-  const initTheme = () => {
-    const isDark = useDark({
-      valueDark: 'dark',
-      valueLight: 'light'
-    })
-    isDark.value = getIsDark()
-  }
-
-  return {
-    layout,
-    title,
-    mobile,
-    collapse,
-    theme,
-    setTheme,
-    getTheme,
-    getLayout,
-    setLayout,
-    getMobile,
-    setMobile,
-    getIsDark,
-    setIsDark,
-    setCollapse,
-    initTheme
-  }
+  },
+  persist: true
 })

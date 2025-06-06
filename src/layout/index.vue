@@ -59,7 +59,7 @@ import TitleLogo from '@/layout/TitleLogo.vue'
 
 const appStore = useAppStore()
 const useStore = useUserStore()
-const layout = computed(() => appStore.getLayout())
+const layout = computed(() => appStore.getLayout)
 
 onMounted(() => {
   if (getToken()) {

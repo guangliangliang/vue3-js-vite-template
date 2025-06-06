@@ -90,9 +90,8 @@ function handleFinish() {
       const res = await onUserRegister(formState)
       if (res.code === 200) {
         ElMessage.success('注册成功')
-      } else {
-        state.loginBtn = false
       }
+      state.loginBtn = false
     } catch {
       state.loginBtn = false
     }
