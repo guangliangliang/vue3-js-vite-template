@@ -4,6 +4,7 @@ import path from 'path'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 export default defineConfig({
+  base: '/vue3-js-vite-template/',
   server: {
     host: true, // 或 '0.0.0.0'
     strictPort: false, // 若端口被占用，自动 +1 找下一个可用端口
