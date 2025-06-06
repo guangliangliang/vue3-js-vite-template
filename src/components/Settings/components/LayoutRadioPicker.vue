@@ -7,78 +7,73 @@ const { getPrefixCls } = useDesign()
 const prefixCls = getPrefixCls('layout-radio-picker')
 
 const appStore = useAppStore()
-
 const layout = computed(() => appStore.getLayout)
 </script>
 
 <template>
-  <div :class="prefixCls" class="layout-picker-wrapper">
+  <div :class="prefixCls" class="layout-radio-picker-wrapper">
     <div
-      :class="[`${prefixCls}__classic`, 'layout-item', { 'is-acitve': layout === 'classic' }]"
+      :class="[
+        `${prefixCls}__classic`,
+        'layout-radio-picker-item',
+        { 'is-active': layout === 'classic' }
+      ]"
       @click="appStore.setLayout('classic')"
     ></div>
     <div
-      :class="[`${prefixCls}__top-left`, 'layout-item', { 'is-acitve': layout === 'topLeft' }]"
+      :class="[
+        `${prefixCls}__top-left`,
+        'layout-radio-picker-item',
+        { 'is-active': layout === 'topLeft' }
+      ]"
       @click="appStore.setLayout('topLeft')"
     ></div>
     <!-- <div
-      :class="[`${prefixCls}__top`, 'layout-item', { 'is-acitve': layout === 'top' }]"
+      :class="[`${prefixCls}__top`, 'layout-radio-picker-item', { 'is-active': layout === 'top' }]"
       @click="appStore.setLayout('top')"
     ></div>
     <div
-      :class="[`${prefixCls}__cut-menu`, 'layout-item', { 'is-acitve': layout === 'cutMenu' }]"
+      :class="[
+        `${prefixCls}__cut-menu`,
+        'layout-radio-picker-item',
+        { 'is-active': layout === 'cutMenu' }
+      ]"
       @click="appStore.setLayout('cutMenu')"
     >
-      <div class="cut-menu-inner-bar"></div>
+      <div class="cut-menu-inner"></div>
     </div> -->
   </div>
 </template>
 
 <style lang="scss" scoped>
-$primary-border-color: var(--el-color-primary);
-$default-border-color: #e5e7eb;
-$dark-bg: #273352;
-$light-bg: #fff;
+$prefix-cls: '#{$adminNamespace}-layout-radio-picker';
 
-.layout-picker-wrapper {
+.layout-radio-picker-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 14px;
+  gap: 14px; // 代替 space-x-14px
   justify-content: center;
 }
 
-.layout-item {
-  background-color: #d1d5db; // bg-gray-300
-  border: 2px solid $default-border-color;
-  border-radius: 4px;
+.layout-radio-picker-item {
+  background-color: #d1d5db; // bg-gray-300 颜色替代
   cursor: pointer;
   height: 48px;
   position: relative;
   width: 56px;
+
+  &.is-active {
+    border-color: var(--el-color-primary);
+  }
 }
 
-.cut-menu-inner-bar {
-  background-color: #e5e7eb; // bg-gray-200
-  height: 100%;
-  left: 10%;
-  position: absolute;
-  top: 0;
-  width: 33%;
-}
+.#{$prefix-cls} {
+  &__classic {
+    border: 2px solid #e5e7eb;
+    border-radius: 4px;
 
-.is-acitve {
-  border-color: $primary-border-color;
-}
-
-@function prefix($name) {
-  @return 'layout-radio-picker' + $name;
-}
-
-// 以下按原 Less 转换来的结构
-@at-root {
-  .layout-radio-picker__classic {
     &::before {
-      background-color: $dark-bg;
+      background-color: #273352;
       border-radius: 4px 0 0 4px;
       content: '';
       height: 100%;
@@ -90,8 +85,8 @@ $light-bg: #fff;
     }
 
     &::after {
-      background-color: $light-bg;
-      border-radius: 4px 4px 0 0;
+      background-color: #fff;
+      border-radius: 4px 4px 0;
       content: '';
       height: 25%;
       left: 0;
@@ -101,9 +96,12 @@ $light-bg: #fff;
     }
   }
 
-  .layout-radio-picker__top-left {
+  &__top-left {
+    border: 2px solid #e5e7eb;
+    border-radius: 4px;
+
     &::before {
-      background-color: $dark-bg;
+      background-color: #273352;
       border-radius: 4px 4px 0 0;
       content: '';
       height: 33%;
@@ -115,7 +113,7 @@ $light-bg: #fff;
     }
 
     &::after {
-      background-color: $light-bg;
+      background-color: #fff;
       border-radius: 4px 0 0 4px;
       content: '';
       height: 100%;
@@ -126,9 +124,12 @@ $light-bg: #fff;
     }
   }
 
-  .layout-radio-picker__top {
+  &__top {
+    border: 2px solid #e5e7eb;
+    border-radius: 4px;
+
     &::before {
-      background-color: $dark-bg;
+      background-color: #273352;
       border-radius: 4px 4px 0 0;
       content: '';
       height: 33%;
@@ -140,9 +141,12 @@ $light-bg: #fff;
     }
   }
 
-  .layout-radio-picker__cut-menu {
+  &__cut-menu {
+    border: 2px solid #e5e7eb;
+    border-radius: 4px;
+
     &::before {
-      background-color: $dark-bg;
+      background-color: #273352;
       border-radius: 4px 4px 0 0;
       content: '';
       height: 33%;
@@ -154,7 +158,7 @@ $light-bg: #fff;
     }
 
     &::after {
-      background-color: $light-bg;
+      background-color: #fff;
       border-radius: 4px 0 0 4px;
       content: '';
       height: 100%;
@@ -164,5 +168,14 @@ $light-bg: #fff;
       width: 10%;
     }
   }
+}
+
+.cut-menu-inner {
+  background-color: #e5e7eb; // bg-gray-200 替代色
+  height: 100%;
+  left: 10%;
+  position: absolute;
+  top: 0;
+  width: 33%;
 }
 </style>

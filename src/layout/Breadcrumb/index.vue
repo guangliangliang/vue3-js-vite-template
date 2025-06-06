@@ -1,15 +1,18 @@
 <template>
-  <el-breadcrumb separator="/" :class="`${prefixCls} flex items-center h-full ml-[10px]`">
-    <transition-group appear enter-active-class="animate__animated animate__fadeInRight">
+  <el-breadcrumb :class="`${prefixCls} breadcrumb-wrapper`" separator="/">
+    <transition-group appear enter-active-class="animate__animated animate__fadeInRight" tag="div">
       <el-breadcrumb-item
         v-for="item in breadcrumbList"
         :key="item.name"
         :to="item.disabled ? '' : item.path"
+        class="breadcrumb-item"
       >
-        <el-icon v-if="item.meta.icon">
-          <component :is="item.meta.icon" />
-        </el-icon>
-        {{ item.meta.title || '' }}
+        <div class="breadcrumb-item-inner">
+          <el-icon v-if="item.meta.icon">
+            <component :is="item.meta.icon" />
+          </el-icon>
+          <span>{{ item.meta?.title || '' }}</span>
+        </div>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
@@ -34,8 +37,8 @@ const menuRouters = computed(() => {
   return filterBreadcrumb(routers)
 })
 
-const getBreadcrumb = () => {
-  const currentPath = currentRoute.value.matched.slice(-1)[0].path
+function getBreadcrumb() {
+  const currentPath = currentRoute.value.matched.slice(-1)[0]?.path || ''
   levelList.value = filter(unref(menuRouters), (node) => node.path === currentPath)
 }
 
@@ -48,8 +51,6 @@ const breadcrumbList = computed(() => {
   }))
   return result.slice(1)
 })
-window.breadcrumbList = breadcrumbList
-console.log('breadcrumbList', breadcrumbList.value)
 
 watch(
   () => currentRoute.value,
@@ -63,42 +64,50 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.breadcrumb {
+$prefix-cls: '#{$adminNamespace}-breadcrumb';
+
+.#{$prefix-cls} {
+  align-items: center;
+  display: flex;
+  height: 100%;
   margin-left: 10px;
 
-  &__item {
+  .breadcrumb-item {
     display: flex;
 
-    .breadcrumb__inner {
+    &-inner {
       align-items: center;
       color: var(--top-header-text-color);
+      cursor: pointer;
       display: flex;
 
       &:hover {
         color: var(--el-color-primary);
       }
     }
-  }
 
-  &__item:not(:last-child) {
-    .breadcrumb__inner {
+    &:not(:last-child)-inner {
       color: var(--top-header-text-color);
 
       &:hover {
         color: var(--el-color-primary);
       }
     }
-  }
 
-  &__item:last-child {
-    /* stylelint-disable-next-line no-descending-specificity */
-    .breadcrumb__inner {
-      color: var(--el-text-color-placeholder);
-
-      &:hover {
+    &:last-child {
+      &-inner {
         color: var(--el-text-color-placeholder);
+        cursor: default;
+
+        &:hover {
+          color: var(--el-text-color-placeholder);
+        }
       }
     }
+  }
+
+  .breadcrumb-icon {
+    margin-right: 5px;
   }
 }
 </style>

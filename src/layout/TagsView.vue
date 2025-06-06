@@ -1,8 +1,8 @@
 <template>
-  <div :id="prefixCls" :class="prefixCls" class="tags-view">
-    <div class="tags-view__scroll">
-      <ElScrollbar ref="scrollbarRef" class="tags-view__scrollbar" @scroll="scroll">
-        <div class="tags-view__scroll-inner">
+  <div :id="prefixCls" :class="prefixCls">
+    <div :class="`${prefixCls}__scroll`">
+      <ElScrollbar ref="scrollbarRef" :class="`${prefixCls}__scrollbar`" @scroll="scroll">
+        <div :class="`${prefixCls}__scroll-inner`">
           <div
             v-for="item in visitedViews"
             :class="[
@@ -15,12 +15,12 @@
             :key="item.fullPath"
           >
             <router-link :ref="tagLinksRefs.set" :to="{ ...item }" custom v-slot="{ navigate }">
-              <div @click="navigate" class="tags-view__item-content">
+              <div @click="navigate" :class="`${prefixCls}__item-content`">
                 <Icon
                   v-if="canShowIcon(item)"
                   :icon="item?.matched?.[1]?.meta?.icon || item?.meta?.icon"
                   :size="12"
-                  class="tags-view__item-icon"
+                  :class="`${prefixCls}__item-icon`"
                 />
                 {{ item?.meta?.title }}
                 <Icon
@@ -171,7 +171,9 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.tags-view {
+$prefix-cls: '#{$adminNamespace}-tags-view';
+
+.#{$prefix-cls} {
   background-color: #fff;
   display: flex;
   height: 35px;
@@ -183,7 +185,7 @@ watch(
     height: 100%;
   }
 
-  .tags-view__scrollbar {
+  .#{$prefix-cls}__scrollbar {
     height: 100%;
   }
 
@@ -275,11 +277,11 @@ watch(
 }
 
 html.dark {
-  .tags-view {
+  .#{$prefix-cls} {
     background-color: var(--el-bg-color-overlay);
   }
   /* stylelint-disable-next-line no-descending-specificity */
-  .tags-view__item {
+  .#{$prefix-cls}__item {
     border: 1px solid var(--el-border-color);
 
     &.is-active {

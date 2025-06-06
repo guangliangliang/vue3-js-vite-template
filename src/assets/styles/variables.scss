@@ -1,5 +1,9 @@
 $primary-color: #42b983;
 $font-size-base: 16px;
 $padding-base: 16px;
+// 命名空间
+$adminNamespace: v;
+// el 命名空间
+$elNamespace: el;
 
 @use 'element-plus/theme-chalk/src/index.scss' as *;

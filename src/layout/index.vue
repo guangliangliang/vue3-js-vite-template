@@ -39,7 +39,7 @@
     <Settings />
     <!-- 主体内容 -->
     <el-main :class="[appStore.collapse ? 'is-collapse' : '', appStore.mobile ? 'is-mobile' : '']">
-      <!-- <OTagsView /> -->
+      <OTagsView v-if="false" />
       <el-scrollbar class="main-scrollbar">
         <!-- 主体部分 -->
         <router-view />
@@ -55,7 +55,7 @@ import OMenu from './Menu/Menu.vue'
 import { getToken } from '@/utils/auth'
 import { onMounted, computed } from 'vue'
 import TitleLogo from '@/layout/TitleLogo.vue'
-// import OTagsView from './TagsView.vue'
+import OTagsView from './TagsView.vue'
 
 const appStore = useAppStore()
 const useStore = useUserStore()
