@@ -1,0 +1,1 @@
+import{V as s,P as r,W as t,X as u,U as n}from"./index-DKPFGErR.js";function o(e){return n(`${r.user}`,e)}function i(e){return s(`${r.user}/${e}`)}function $(e){return u(`${r.user}/${e.id}`,e)}function c(e){return t(`${r.user}/${e}`)}export{o as c,c as d,i as g,$ as u};
