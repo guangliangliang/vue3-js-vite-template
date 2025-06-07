@@ -5,6 +5,7 @@
       <OBreadcrumb />
     </div>
     <div class="header-right">
+      <OScreenfull />
       <el-dropdown>
         <div class="user-dropdown">
           <el-avatar :src="user.avatar || avatar" />
@@ -23,6 +24,7 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { logout } from '@/api/login'
+import OScreenfull from './Header/Screenfull.vue'
 import { useAppStore, useUserStore } from '@/stores'
 import OBreadcrumb from './Breadcrumb/index.vue'
 import { confirmBox } from '@/utils/elementPlus'
