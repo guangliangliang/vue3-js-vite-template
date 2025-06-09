@@ -13,9 +13,9 @@ import 'virtual:svg-icons-register'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-if (import.meta.env.MODE === 'development') {
-  import('./mock')
-}
+// if (import.meta.env.MODE === 'development') {
+import('./mock')
+// }
 const app = createApp(App)
 
 // 注册自定义组件
