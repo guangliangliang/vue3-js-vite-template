@@ -61,17 +61,17 @@ import { useUserStore } from '@/stores'
 import { createUser, getUserInfo, updateUser } from '@/api/system/user'
 import { getToken } from '@/utils/auth'
 import { elv } from '@/utils/elValidation'
-import { roleOptions } from '@/views/system/user/config'
 
 // 路由 & 用户 store
 const route = useRoute()
 const router = useRouter()
-const usestore = useUserStore()
+const userStore = useUserStore()
 
 // 当前是否为编辑模式
 const id = route.params.id
 const isEditing = computed(() => !!id)
-
+const roleOptions = computed(() => userStore.roles)
+window.userStore = userStore
 // 引用表单 & 上传组件
 const ruleForm = ref()
 const upload = ref()
@@ -101,8 +101,10 @@ const headers = {
 
 // 获取用户详情（编辑时调用）
 const userInfo = async () => {
-  const info = await getUserInfo(+id)
-  Object.assign(formData, info)
+  const info = await getUserInfo(`${id}`)
+  console.log(info, 'infoinfo')
+
+  Object.assign(formData, info.data)
 }
 
 // 上传成功
@@ -129,8 +131,8 @@ const onConfirm = () => {
       if (isEditing.value) {
         await updateUser(formData)
         ElMessage.success('编辑成功')
-        if (usestore.user.id === formData.id) {
-          usestore.getUser()
+        if (userStore.user.id === formData.id) {
+          userStore.getUser()
         }
       } else {
         await createUser(formData)

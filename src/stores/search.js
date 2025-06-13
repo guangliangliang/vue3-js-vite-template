@@ -17,6 +17,31 @@ const searchInfoObj = {
       type: 'auto_complete',
       hint: '请输入手机号'
     }
+  ],
+  role: [
+    {
+      id: 'role_name_text',
+      name: '角色名称',
+      type: 'text',
+      hint: '请输入角色名称'
+    }
+    // {
+    //   id: 'role_status',
+    //   name: '角色状态',
+    //   type: 'select',
+    //   hint: '请选择角色状态',
+    //   multi_select: false,
+    //   options: [
+    //     {
+    //       key: 'enable',
+    //       value: '已启用'
+    //     },
+    //     {
+    //       key: 'disabled',
+    //       value: '已禁用'
+    //     }
+    //   ]
+    // }
   ]
 }
 

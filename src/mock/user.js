@@ -1,23 +1,6 @@
 import Mock from 'mockjs'
-
-let users = [
-  {
-    id: 1,
-    name: '张三',
-    mobile: '13800000000',
-    sex: '男',
-    role_ids: [1],
-    avatar: ''
-  },
-  {
-    id: 2,
-    name: '李四',
-    mobile: '13900000000',
-    sex: '女',
-    role_ids: [2],
-    avatar: ''
-  }
-]
+import { roles } from './role'
+let users = []
 
 // 用户列表 mock
 Mock.mock(/^\/user(\?.*)?$/, 'get', (options) => {
@@ -33,9 +16,14 @@ Mock.mock(/^\/user(\?.*)?$/, 'get', (options) => {
         name: '@cname',
         email: '@email',
         roles: () => {
-          const roles = ['超级管理员', '系统管理员', '运营人员', '内容编辑', '游客']
+          const rolesVal = roles.map((item) => item.name)
           const count = Mock.Random.integer(1, 3)
-          return Mock.Random.shuffle(roles).slice(0, count).join('、')
+          return Mock.Random.shuffle(rolesVal).slice(0, count).join('、')
+        },
+        role_ids: () => {
+          const rolesVal = roles.map((item) => item.id)
+          const count = Mock.Random.integer(1, 3)
+          return Mock.Random.shuffle(rolesVal).slice(0, count)
         },
         sex: '@pick(["男", "女"])',
         mobile: /^1[3-9]\d{9}$/,
@@ -44,6 +32,8 @@ Mock.mock(/^\/user(\?.*)?$/, 'get', (options) => {
       }
     ]
   }).data
+  users = list
+  console.log(list, 'listlist')
 
   return {
     code: 200,
@@ -59,49 +49,13 @@ Mock.mock(/^\/user(\?.*)?$/, 'get', (options) => {
 
 // 获取用户详情（GET /user/:id）
 Mock.mock(/\/user\/\d+$/, 'get', (options) => {
-  const id = parseInt(options.url.split('/').pop())
-  const user = users.find((u) => u.id === id)
+  const id = options.url.split('/').pop()
+  console.log(id, 'idq')
+
+  const user = users.find((u) => u.id === `${id}`)
   return {
     code: 200,
     message: 'OK',
     data: user || null
-  }
-})
-
-// 创建用户（POST /user）
-Mock.mock('/user', 'post', (options) => {
-  const body = JSON.parse(options.body)
-  const newUser = {
-    ...body,
-    id: users.length + 1
-  }
-  users.push(newUser)
-  return {
-    code: 200,
-    message: '创建成功',
-    data: newUser
-  }
-})
-
-// 更新用户（PUT /user/:id）
-Mock.mock(/\/user\/\d+$/, 'put', (options) => {
-  const id = parseInt(options.url.split('/').pop())
-  const body = JSON.parse(options.body)
-  users = users.map((u) => (u.id === id ? { ...u, ...body } : u))
-  return {
-    code: 200,
-    message: '更新成功',
-    data: body
-  }
-})
-
-// 删除用户（DELETE /user/:id）
-Mock.mock(/\/user\/\d+$/, 'delete', (options) => {
-  const id = parseInt(options.url.split('/').pop())
-  users = users.filter((u) => u.id !== id)
-  return {
-    code: 200,
-    message: '删除成功',
-    data: true
   }
 })

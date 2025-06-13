@@ -1,5 +1,5 @@
 import { del, get, put, post } from '@/utils/request'
-import { Api } from '@/api/common' // 注意：JS中不能使用 TypeScript 的 enum，需将 enum 改为对象导出，见说明
+import { Api } from '@/api/common'
 
 export function createUser(params) {
   return post(`${Api.user}`, params)

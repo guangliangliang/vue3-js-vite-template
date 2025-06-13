@@ -36,6 +36,11 @@ const menuList = ref([
         id: 'user',
         name: '用户管理',
         path: '/system/user'
+      },
+      {
+        id: 'role',
+        name: '角色管理',
+        path: '/system/role'
       }
     ]
   }
