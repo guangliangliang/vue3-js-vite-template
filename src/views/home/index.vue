@@ -20,13 +20,17 @@
           <o-echarts :option="weekOptions" />
         </BaseContainer>
       </ElCol>
-
-      <ElCol :xl="10" :lg="10" :md="24" :sm="24" :xs="24">
+      <ElCol :xl="8" :lg="8" :md="24" :sm="24" :xs="24">
         <ElCard shadow="hover" class="box-bottom">
           <o-echarts :option="pieOptions" :height="300" />
         </ElCard>
       </ElCol>
-      <ElCol :xl="14" :lg="14" :md="24" :sm="24" :xs="24">
+      <ElCol :xl="8" :lg="8" :md="24" :sm="24" :xs="24">
+        <ElCard shadow="hover" class="box-bottom">
+          <SwiperDemo />
+        </ElCard>
+      </ElCol>
+      <ElCol :xl="8" :lg="8" :md="24" :sm="24" :xs="24">
         <ElCard shadow="hover" class="box-bottom">
           <o-echarts :option="barOptions" :height="300" />
         </ElCard>
@@ -37,18 +41,17 @@
         </ElCard>
       </ElCol>
     </ElRow>
-    <!-- <o-swiper :slides="['幻灯片1', '幻灯片2', '幻灯片3']" /> -->
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import SwiperDemo from './SwiperDemo.vue'
 import { getWeekOptions, getPieOptions, getBarOptions, getLineOptions } from './options'
 import Hello from './hello.vue'
 onMounted(() => {
   console.log('首页已加载')
 })
-
 const weekOptions = ref(getWeekOptions())
 const pieOptions = ref(getPieOptions())
 const barOptions = ref(getBarOptions())
