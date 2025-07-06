@@ -1,7 +1,7 @@
 <template>
   <o-search :loading="loading" @search="submitSearch" />
 
-  <el-card v-loading="loading" element-loading-text="玩命加载中...">
+  <el-card element-loading-text="玩命加载中...">
     <div class="table-top-bar">
       <slot name="table-top" />
     </div>

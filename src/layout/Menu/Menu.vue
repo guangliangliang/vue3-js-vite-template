@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar class="menu-container">
-    <el-menu :collapse="appStore.collapse" :default-active="activeMenu" unique-opened>
+    <el-menu :collapse="appStore.collapse" :default-active="activeMenu">
       <o-menu-item :menu-list="menuList" />
     </el-menu>
   </el-scrollbar>

@@ -94,6 +94,7 @@ const handleClickOutside = () => {
 
 .top-left-header {
   left: var(--left-menu-max-width);
+  transition: all 0.3s;
   width: calc(100% - var(--left-menu-max-width));
 }
 

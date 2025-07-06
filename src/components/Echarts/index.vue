@@ -52,6 +52,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', resizeChart)
+  chartRef.value?.dispose?.() // 🔥 强制销毁 ECharts 实例
 })
 
 const computedHeight = computed(() => {
