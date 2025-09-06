@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
-import { baseTitle } from '@/config'
+import { baseTitle, prevUrl } from '@/config'
 import routes from './routes'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(prevUrl), // 这里要和 vite.config.js 的 base 保持一致
   routes
 })
 
