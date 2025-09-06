@@ -1,0 +1,1 @@
+import{S as o,O as t,U as r,V as n,R as u}from"./index-BaJaAyi_.js";function a(e){return o(`${t.role}`,e)}function s(e){return u(`${t.role}`,e)}function i(e){return o(`${t.role}/${e}`)}function $(e){return n(`${t.role}/${e.id}`,e)}function c(e){return r(`${t.role}/${e}`)}export{i as a,s as c,c as d,a as g,$ as u};
