@@ -3,9 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "electron/main.js", 
   "scripts": {
     "dev": "vite",
+    "electron:dev": "rimraf dist-electron && concurrently -k \"vite\" \"wait-on tcp:5173 && electron .\"",
     "build": "vite build",
+    "build:electron": "npm run build && electron-builder",
     "preview": "vite preview",
     "format:prettier": "prettier --write \"src/**/*.{js,vue,css,scss}\"",
     "format:stylelint": "stylelint \"src/**/*.{css,scss}\" --fix",
@@ -35,6 +38,9 @@
   "devDependencies": {
     "@eslint/js": "^9.28.0",
     "@vitejs/plugin-vue": "^5.2.3",
+    "concurrently": "^9.2.1",
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.28.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.4.1",
@@ -46,6 +52,7 @@
     "postcss-html": "^1.8.0",
     "postcss-scss": "^4.0.9",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "sass": "^1.89.1",
     "stylelint": "^16.20.0",
     "stylelint-config-standard": "^38.0.0",
@@ -54,9 +61,30 @@
     "stylelint-scss": "^6.12.0",
     "vite": "^6.3.5",
     "vite-plugin-svg-icons": "^2.0.1",
-    "vue-eslint-parser": "^10.1.3"
+    "vue-eslint-parser": "^10.1.3",
+    "wait-on": "^8.0.4"
   },
   "lint-staged": {
     "src/**/*.{js,vue,css,scss}": "npm run format"
+  },
+   "build": {
+    "appId": "com.example.myapp",
+    "productName": "我的应用",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist",
+      "electron"
+    ],
+    "win": {
+      "icon": "electron/assets/icon.png"
+    },
+    "mac": {
+      "icon": "electron/assets/icon.png"
+    },
+    "linux": {
+      "icon": "electron/assets/icon.png"
+    }
   }
 }

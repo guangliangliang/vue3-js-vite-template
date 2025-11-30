@@ -4,6 +4,7 @@ import { useAppStore } from '@/stores'
 onMounted(() => {
   const appStore = useAppStore()
   appStore.initTheme()
+  console.log('App mounted, theme initialized.')
 })
 </script>
 
