@@ -58,6 +58,7 @@ function createWindow() {
           label: '关于',
           click: () => {
             console.log('关于本应用')
+            win.webContents.send('show-about')
             dialog.showMessageBox(win, {
               type: 'info',
               title: '关于本应用',
@@ -79,6 +80,7 @@ app.whenReady().then(() => {
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+  console.log(JSON.stringify(process.env.MODE), 'process.env.NODE_ENVprocess.env.NODE_ENV')
   if (process.env.NODE_ENV === 'development') {
     globalShortcut.register('F12', () => {
       if (win) {

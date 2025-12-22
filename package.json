@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "electron/main.js", 
+  "main": "electron/main.js",
   "scripts": {
-    "dev": "vite",
-    "electron:dev": "rimraf dist-electron && concurrently -k \"vite\" \"wait-on tcp:5173 && electron .\"",
-    "build": "vite build",
-    "build:electron": "npm run build && electron-builder",
+    "dev": "cross-env VITE_IS_ELECTRON=false vite",
+    "electron:dev": "rimraf dist-electron && concurrently -k \"cross-env VITE_IS_ELECTRON=true vite\" \"wait-on tcp:5173 && electron .\"",
+    "build": "cross-env VITE_IS_ELECTRON=false vite build",
+    "build:electron": "cross-env VITE_IS_ELECTRON=true vite build && electron-builder",
     "preview": "vite preview",
     "format:prettier": "prettier --write \"src/**/*.{js,vue,css,scss}\"",
     "format:stylelint": "stylelint \"src/**/*.{css,scss}\" --fix",
@@ -39,6 +39,7 @@
     "@eslint/js": "^9.28.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
     "electron": "^38.0.0",
     "electron-builder": "^26.0.12",
     "eslint": "^9.28.0",
@@ -67,7 +68,7 @@
   "lint-staged": {
     "src/**/*.{js,vue,css,scss}": "npm run format"
   },
-   "build": {
+  "build": {
     "appId": "com.example.myapp",
     "productName": "我的应用",
     "directories": {
