@@ -14,7 +14,9 @@
     "format:stylelint": "stylelint \"src/**/*.{css,scss}\" --fix",
     "format:eslint": "eslint --ext .js,.vue src --fix",
     "format": "npm run format:prettier && npm run format:stylelint && npm run format:eslint",
-    "prepare": "husky install"
+    "lint": "npm run format",
+    "prepare": "husky install",
+    "test": "echo \"no test yet\""
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
