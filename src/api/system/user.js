@@ -1,4 +1,4 @@
-import { del, get, put, post } from '@/utils/request'
+import { del, get, patch, post } from '@/utils/request'
 import { Api } from '@/api/common'
 
 export function createUser(params) {
@@ -10,7 +10,9 @@ export function getUserInfo(id) {
 }
 
 export function updateUser(params) {
-  return put(`${Api.user}/${params.id}`, params)
+  const id = params.id
+  delete params.id
+  return patch(`${Api.user}/${id}`, params)
 }
 
 export function deleteUser(id) {

@@ -28,6 +28,25 @@
             prefix-icon="lock"
           />
         </el-form-item>
+        <el-form-item prop="phone">
+          <el-input
+            v-model="formState.phone"
+            size="large"
+            placeholder="请输入手机号"
+            prefix-icon="phone"
+          />
+        </el-form-item>
+        <el-form-item prop="email">
+          <el-input
+            v-model="formState.email"
+            size="large"
+            placeholder="请输入邮箱"
+            prefix-icon="message"
+          />
+        </el-form-item>
+        <el-form-item prop="gender">
+          <o-select v-model="formState.gender" :options="genderOptions" placeholder="请选择性别" />
+        </el-form-item>
         <el-form-item>
           <el-button
             size="large"
@@ -49,21 +68,45 @@
 </template>
 
 <script setup>
-import { reactive, defineEmits, ref } from 'vue'
+import { reactive, computed, onMounted, defineEmits, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-
+import { useUserStore } from '@/stores'
 import { onUserRegister } from '@/api/login'
+import { DEV_FLAG } from '@/config'
 const emit = defineEmits(['to-login'])
-
+const userStore = useUserStore()
 const formRef = ref()
+const genderOptions = computed(() => userStore.genders)
 
-const formState = reactive({
-  username: '',
-  password: ''
-})
+const formState = reactive(
+  DEV_FLAG
+    ? {
+        username: 'wx',
+        email: '17600498921@163.com',
+        phone: 17600498911,
+        gender: 'male',
+        password: '123456'
+      }
+    : {
+        username: undefined,
+        email: undefined,
+        phone: undefined,
+        gender: undefined,
+        password: undefined
+      }
+)
 
 const rules = reactive({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+  ],
+  phone: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { pattern: /^\d{6,15}$/, message: '请输入有效的手机号', trigger: ['blur', 'change'] }
+  ],
+  gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 })
 
@@ -72,8 +115,20 @@ const state = reactive({
 })
 
 function onDispatchInfo(values) {
-  values.username = values.username.trim()
-  values.password = values.password.trim()
+  const normalize = (v) => {
+    if (typeof v !== 'string') return v
+    const t = v.trim()
+    return t === '' ? undefined : t
+  }
+
+  const { username, email, phone, gender, password } = values || {}
+  return {
+    username: normalize(username),
+    email: normalize(email),
+    phone: normalize(phone),
+    gender: normalize(gender),
+    password: normalize(password)
+  }
 }
 
 const toLogin = () => {
@@ -85,9 +140,9 @@ function handleFinish() {
   formRef.value.validate(async (valid) => {
     if (!valid) return
     state.loginBtn = true
-    onDispatchInfo(formState)
+    const params = onDispatchInfo(formState)
     try {
-      const res = await onUserRegister(formState)
+      const res = await onUserRegister(params)
       if (res.code === 200) {
         ElMessage.success('注册成功')
       }
@@ -97,4 +152,8 @@ function handleFinish() {
     }
   })
 }
+
+onMounted(() => {
+  userStore.getGenderData()
+})
 </script>

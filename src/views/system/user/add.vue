@@ -7,32 +7,36 @@
       :rules="formRules"
       label-position="top"
     >
-      <el-form-item label="手机号" prop="mobile">
-        <el-input v-model="formData.mobile" placeholder="请输入手机号" :disabled="isEditing" />
+      <el-form-item label="手机号" prop="phone">
+        <el-input v-model="formData.phone" placeholder="请输入手机号" :disabled="isEditing" />
       </el-form-item>
-      <el-form-item label="姓名" prop="name">
-        <el-input v-model="formData.name" placeholder="请输入姓名" />
+      <el-form-item label="邮箱" prop="email">
+        <el-input v-model="formData.email" placeholder="邮箱" :disabled="isEditing" />
+      </el-form-item>
+      <el-form-item label="姓名" prop="username">
+        <el-input v-model="formData.username" placeholder="请输入姓名" :disabled="isEditing" />
       </el-form-item>
 
-      <el-form-item v-if="!isEditing" label="默认密码" prop="password">
-        <el-input v-model="formData.password" type="password" placeholder="请输入默认密码" />
+      <el-form-item v-if="!isEditing" label="密码" prop="password">
+        <el-input
+          v-model="formData.password"
+          show-password
+          type="password"
+          placeholder="请输入默认密码"
+        />
       </el-form-item>
-      <el-form-item label="性别" prop="sex">
-        <el-radio-group v-model="formData.sex">
-          <el-radio label="男">男</el-radio>
-          <el-radio label="女">女</el-radio>
-        </el-radio-group>
+      <el-form-item label="性别" prop="gender">
+        <o-select v-model="formData.gender" :options="genderOptions" placeholder="请选择性别" />
       </el-form-item>
-      <el-form-item label="所属角色：" prop="role_ids">
+      <el-form-item label="所属角色：" prop="roleId">
         <o-select
-          v-model="formData.role_ids"
-          multiple
+          v-model="formData.roleId"
           :options="roleOptions"
           option-key="role_option"
           placeholder="请选择所属角色"
         />
       </el-form-item>
-      <el-form-item label="用户头像：">
+      <el-form-item label="用户头像：" v-if="false">
         <el-upload
           ref="upload"
           class="upload-wrapper"
@@ -71,27 +75,31 @@ const userStore = useUserStore()
 const id = route.params.id
 const isEditing = computed(() => !!id)
 const roleOptions = computed(() => userStore.roles)
-window.userStore = userStore
+const genderOptions = computed(() => userStore.genders)
 // 引用表单 & 上传组件
 const ruleForm = ref()
 const upload = ref()
 
 // 表单数据
 const formData = reactive({
-  sex: '男',
-  name: '',
-  avatar: '',
-  mobile: '',
-  password: '',
-  role_ids: []
+  username: undefined,
+  password: undefined,
+  avatar: undefined,
+  phone: undefined,
+  email: undefined,
+  roleId: undefined
 })
 
 // 表单校验规则
 const formRules = reactive({
-  name: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
-  mobile: [{ required: true, validator: elv.isMobile(), trigger: 'blur' }],
+  username: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
+  phone: [{ required: true, validator: elv.isMobile(), trigger: 'blur' }],
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+  ],
   password: [{ required: true, message: '请输入默认密码', trigger: 'blur' }],
-  role_ids: [{ required: true, message: '请选择用户角色', trigger: 'change' }]
+  roleId: [{ required: true, message: '请选择用户角色', trigger: 'change' }]
 })
 
 // 上传配置
@@ -103,8 +111,16 @@ const headers = {
 const userInfo = async () => {
   const info = await getUserInfo(`${id}`)
   console.log(info, 'infoinfo')
+  const { username, email, gender, phone, roleId } = info.data
 
-  Object.assign(formData, info.data)
+  Object.assign(formData, {
+    id: info.data.id,
+    email,
+    username,
+    gender,
+    phone,
+    roleId
+  })
 }
 
 // 上传成功

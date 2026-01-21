@@ -4,14 +4,8 @@
       <el-form-item label="角色名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入角色名称" />
       </el-form-item>
-      <el-form-item label="角色状态" prop="name">
-        <el-radio-group v-model="formData.status">
-          <el-radio label="enable" size="large">启用</el-radio>
-          <el-radio label="disabled" size="large">禁用</el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="角色描述：" prop="desc">
-        <el-input v-model="formData.desc" placeholder="请输入角色描述" />
+      <el-form-item label="角色描述：" prop="description">
+        <el-input v-model="formData.description" placeholder="请输入角色描述" />
       </el-form-item>
     </el-form>
   </o-form-wrap>
@@ -33,19 +27,22 @@ isEditing.value = !!id
 
 const ruleForm = ref(null)
 const formData = reactive({
-  name: '',
-  desc: '',
-  status: 'enable'
+  name: undefined,
+  description: undefined
 })
 
 const formRules = reactive({
   name: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
-  desc: [{ required: true, message: '请输入角色描述', trigger: 'blur' }]
+  description: [{ required: true, message: '请输入角色描述', trigger: 'blur' }]
 })
 
 const roleInfo = async () => {
   const info = await getRoleInfo(Number(id))
-  Object.assign(formData, info.data)
+  Object.assign(formData, {
+    id: info.data.id,
+    name: info.data.name,
+    description: info.data.description
+  })
 }
 
 // onConfirm 是 o-form-wrap 组件触发的提交事件

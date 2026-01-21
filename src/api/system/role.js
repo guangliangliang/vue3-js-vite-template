@@ -1,4 +1,4 @@
-import { del, get, put, post } from '@/utils/request'
+import { del, get, patch, post } from '@/utils/request'
 import { Api } from '@/api/common'
 
 export function getRoleList(params) {
@@ -13,7 +13,9 @@ export function getRoleInfo(id) {
 }
 
 export function updateRole(params) {
-  return put(`${Api.role}/${params.id}`, params)
+  const id = params.id
+  delete params.id
+  return patch(`${Api.role}/${id}`, params)
 }
 
 export function deleteRole(id) {

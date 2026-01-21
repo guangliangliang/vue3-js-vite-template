@@ -1,7 +1,10 @@
 import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getUserInfo } from '@/api/login'
+import { getCurrentUserInfo, getGenderList } from '@/api/login'
 import { getRoleList } from '@/api/system/role'
+import { ElMessage } from 'element-plus'
+import { clearLocal } from '@/utils/auth'
+import router from '@/router'
 
 export const useUserStore = defineStore('user', () => {
   const user = reactive({
@@ -10,9 +13,26 @@ export const useUserStore = defineStore('user', () => {
     mobile: ''
   })
   const roles = ref()
+  const genders = ref([])
 
+  const onLogout = async () => {
+    router.push('/login')
+    ElMessage.success('退出登录成功')
+    clearLocal()
+    router.push('/login')
+  }
+  const getGenderData = async () => {
+    const res = await getGenderList()
+    console.log(res, 'resres')
+    if (res.code === 200) {
+      genders.value = res.data.map((item) => {
+        const { label, value } = item
+        return { label, value }
+      })
+    }
+  }
   const getUser = async () => {
-    const res = await getUserInfo()
+    const res = await getCurrentUserInfo()
     console.log(res, 'resres')
     if (res.code === 200) {
       updateUser(res.data)
@@ -37,11 +57,5 @@ export const useUserStore = defineStore('user', () => {
     Object.assign(user, payload)
   }
 
-  return {
-    roles,
-    user,
-    getUser,
-    getUserObj,
-    updateUser
-  }
+  return { genders, roles, user, getUser, getGenderData, getUserObj, onLogout, updateUser }
 })

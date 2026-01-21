@@ -28,10 +28,7 @@ import OScreenfull from './Header/Screenfull.vue'
 import { useAppStore, useUserStore } from '@/stores'
 import OBreadcrumb from './Breadcrumb/index.vue'
 import { confirmBox } from '@/utils/elementPlus'
-import { clearLocal } from '@/utils/auth'
-import router from '@/router'
 import avatar from '@/icons/avatar.svg'
-import { ElMessage } from 'element-plus'
 defineOptions({
   name: 'OHeader'
 })
@@ -53,10 +50,7 @@ const handleLogout = () => {
   }).then(async () => {
     const res = await logout()
     if (res.code === 200) {
-      router.push('/login')
-      ElMessage.success('退出登录成功')
-      clearLocal()
-      router.push('/login')
+      userStore.onLogout()
     }
   })
 }

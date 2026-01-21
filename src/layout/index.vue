@@ -64,6 +64,7 @@ const layout = computed(() => appStore.getLayout)
 onMounted(() => {
   if (getToken()) {
     useStore.getUser()
+    useStore.getGenderData()
   }
 })
 const handleClickOutside = () => {

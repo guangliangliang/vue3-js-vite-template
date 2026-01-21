@@ -10,10 +10,10 @@
     @clear="onClear"
   >
     <el-option
-      v-for="option in _options"
-      :key="option.key"
-      :label="option[prop.value]"
-      :value="valueKey ? option : option[prop.key]"
+      v-for="option in options"
+      :key="option.key || option.value"
+      :label="option.label || option[prop.value]"
+      :value="valueKey ? option[valueKey] : option[prop.key] || option.value"
     />
   </el-select>
 </template>

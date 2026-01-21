@@ -19,7 +19,10 @@ export function useTable(getTableDataFun, options) {
 
     try {
       loading.value = true
-      const res = await getTableDataFun(api, _params)
+      const res = await getTableDataFun(api, {
+        page: _params.page,
+        limit: _params.page_size
+      })
       loading.value = false
       console.log(res.data.list, 'res.data.list')
 

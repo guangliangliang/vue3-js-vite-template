@@ -21,28 +21,27 @@ const tableConfig = {
   api: Api.user,
   headers: [
     {
-      prop: 'name',
+      prop: 'username',
       label: '用户名'
     },
     {
-      prop: 'mobile',
+      prop: 'phone',
       label: '手机号'
     },
     {
-      prop: 'sex',
+      prop: 'email',
+      label: '邮箱'
+    },
+    {
+      prop: 'genderLabel',
       label: '性别'
     },
     {
-      prop: 'avatar',
-      slot: 'avatar',
-      label: '头像'
-    },
-    {
-      prop: 'roles',
+      prop: 'roleName',
       label: '所属角色'
     },
     {
-      prop: 'createTime',
+      prop: 'createdTime',
       label: '创建时间'
     }
   ],

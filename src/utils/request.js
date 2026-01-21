@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { getToken } from '@/utils/auth'
+import { store, useUserStore } from '@/stores'
+
 // 状态码提示信息映射表
 const codeMessage = {
   400: '请求错误',
@@ -50,6 +52,16 @@ service.interceptors.response.use(
     // 假设后端返回格式统一为 { code, message, data }
     if (res.code !== 200) {
       ElMessage.error(res.message || '请求失败')
+      // 如果后端通过 business code 返回 401，触发登出
+      const userStore = useUserStore(store)
+      if (res.code === 401 && typeof userStore?.onLogout === 'function') {
+        try {
+          userStore.onLogout()
+          // eslint-disable-next-line no-unused-vars
+        } catch (e) {
+          // ignore
+        }
+      }
       return Promise.reject(res)
     }
 
@@ -57,8 +69,19 @@ service.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
-      const msg = codeMessage[error.response.status] || '请求失败'
+      const status = error.response.status
+      const msg = codeMessage[status] || '请求失败'
       ElMessage.error(msg)
+      const userStore = useUserStore(store)
+      // HTTP 401 未授权时，主动登出
+      if (status === 401 && typeof userStore?.onLogout === 'function') {
+        try {
+          userStore.onLogout()
+          // eslint-disable-next-line no-unused-vars
+        } catch (e) {
+          // ignore
+        }
+      }
     } else if (error.code === 'ECONNABORTED') {
       ElMessage.error('请求超时')
     } else {
@@ -81,10 +104,13 @@ const post = (url, data = {}, config = {}) => {
 const put = (url, data = {}, config = {}) => {
   return service.put(url, data, config)
 }
+const patch = (url, data = {}, config = {}) => {
+  return service.patch(url, data, config)
+}
 
 const del = (url, params = {}, config = {}) => {
   return service.delete(url, { params, ...config })
 }
 
 export default service
-export { get, post, put, del }
+export { get, post, put, patch, del }

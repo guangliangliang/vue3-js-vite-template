@@ -64,7 +64,7 @@ import { useUserStore } from '@/stores/user' // Pinia 的用户状态管理
 import { setToken } from '@/utils/auth'
 import { baseTitle } from '@/config'
 
-import { getUserInfo, onUserLogin } from '@/api/login'
+import { onUserLogin } from '@/api/login'
 const emit = defineEmits(['to-register'])
 const router = useRouter()
 const userStore = useUserStore()
@@ -106,11 +106,8 @@ function handleFinish() {
         router.push('/home')
         state.loginBtn = false
         ElMessage.success('登录成功')
-        setToken(`Bearer ${res.data}`)
-        const userRes = await getUserInfo({ user_id: res.data })
-        if (userRes.code === 200) {
-          userStore.updateUser(userRes.data)
-        }
+        setToken(`Bearer ${res.data.access_token}`)
+        userStore.getUser()
       } else {
         state.loginBtn = false
       }

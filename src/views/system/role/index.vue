@@ -38,20 +38,15 @@ const tableConfig = {
       label: '角色名称'
     },
     {
-      prop: 'desc',
+      prop: 'description',
       label: '描述'
     },
     {
       prop: 'count',
-      label: '数量'
+      label: '用户数量'
     },
     {
-      prop: 'status_display',
-      slot: 'status_display',
-      label: '状态'
-    },
-    {
-      prop: 'createTime',
+      prop: 'createdTime',
       label: '创建时间'
     }
   ],

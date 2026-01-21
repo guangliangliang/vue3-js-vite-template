@@ -14,7 +14,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 // if (import.meta.env.MODE === 'development') {
-import('./mock')
+// import('./mock')
 // }
 const app = createApp(App)
 
