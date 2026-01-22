@@ -9,6 +9,10 @@ export function getGenderList(params) {
   return get('/dict/name/gender', params)
 }
 
+export function getRoleList(params) {
+  return get('/roles/options/list', params)
+}
+
 export function logout() {
   return post('/auth/logout')
 }

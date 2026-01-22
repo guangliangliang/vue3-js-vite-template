@@ -1,7 +1,6 @@
-import { reactive, ref } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { getCurrentUserInfo, getGenderList } from '@/api/login'
-import { getRoleList } from '@/api/system/role'
+import { getCurrentUserInfo, getGenderList, getRoleList } from '@/api/login'
 import { ElMessage } from 'element-plus'
 import { clearLocal } from '@/utils/auth'
 import router from '@/router'
@@ -10,7 +9,8 @@ export const useUserStore = defineStore('user', () => {
   const user = reactive({
     name: '',
     sex: '',
-    mobile: ''
+    mobile: '',
+    roleId: ''
   })
   const roles = ref()
   const genders = ref([])
@@ -26,6 +26,17 @@ export const useUserStore = defineStore('user', () => {
     console.log(res, 'resres')
     if (res.code === 200) {
       genders.value = res.data.map((item) => {
+        const { label, value } = item
+        return { label, value }
+      })
+    }
+  }
+
+  const getRoleOptions = async () => {
+    const res = await getRoleList()
+    console.log(res, 'resres')
+    if (res.code === 200) {
+      roles.value = res.data.map((item) => {
         const { label, value } = item
         return { label, value }
       })
@@ -57,5 +68,22 @@ export const useUserStore = defineStore('user', () => {
     Object.assign(user, payload)
   }
 
-  return { genders, roles, user, getUser, getGenderData, getUserObj, onLogout, updateUser }
+  // 判断是否为管理员
+  const isAdmin = computed(() => {
+    // 这里根据实际情况判断，例如用户角色为admin或roleId为1
+    return user.roleId === 1 || user.roleName === 'admin'
+  })
+
+  return {
+    genders,
+    roles,
+    user,
+    getUser,
+    getGenderData,
+    getRoleOptions,
+    getUserObj,
+    onLogout,
+    updateUser,
+    isAdmin
+  }
 })

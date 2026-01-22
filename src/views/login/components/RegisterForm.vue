@@ -47,6 +47,9 @@
         <el-form-item prop="gender">
           <o-select v-model="formState.gender" :options="genderOptions" placeholder="请选择性别" />
         </el-form-item>
+        <el-form-item prop="roleId">
+          <o-select v-model="formState.roleId" :options="roleOptions" placeholder="请选择角色" />
+        </el-form-item>
         <el-form-item>
           <el-button
             size="large"
@@ -77,6 +80,7 @@ const emit = defineEmits(['to-login'])
 const userStore = useUserStore()
 const formRef = ref()
 const genderOptions = computed(() => userStore.genders)
+const roleOptions = computed(() => userStore.roles)
 
 const formState = reactive(
   DEV_FLAG
@@ -85,14 +89,16 @@ const formState = reactive(
         email: '17600498921@163.com',
         phone: 17600498911,
         gender: 'male',
-        password: '123456'
+        password: '123456',
+        roleId: ''
       }
     : {
         username: undefined,
         email: undefined,
         phone: undefined,
         gender: undefined,
-        password: undefined
+        password: undefined,
+        roleId: undefined
       }
 )
 
@@ -107,6 +113,7 @@ const rules = reactive({
     { pattern: /^\d{6,15}$/, message: '请输入有效的手机号', trigger: ['blur', 'change'] }
   ],
   gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
+  roleId: [{ required: true, message: '请选择角色', trigger: 'change' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 })
 
@@ -121,13 +128,14 @@ function onDispatchInfo(values) {
     return t === '' ? undefined : t
   }
 
-  const { username, email, phone, gender, password } = values || {}
+  const { username, email, phone, gender, password, roleId } = values || {}
   return {
     username: normalize(username),
     email: normalize(email),
     phone: normalize(phone),
     gender: normalize(gender),
-    password: normalize(password)
+    password: normalize(password),
+    roleId: normalize(roleId)
   }
 }
 
@@ -155,5 +163,6 @@ function handleFinish() {
 
 onMounted(() => {
   userStore.getGenderData()
+  userStore.getRoleOptions()
 })
 </script>
