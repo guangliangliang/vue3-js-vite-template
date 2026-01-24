@@ -13,15 +13,19 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu>
+            <el-dropdown-item @click="handleChangePassword">修改密码</el-dropdown-item>
             <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
     </div>
+    <!-- 修改密码组件 -->
+    <ChangePassword ref="changePasswordRef" />
   </el-header>
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { logout } from '@/api/login'
 import OScreenfull from './Header/Screenfull.vue'
@@ -29,9 +33,7 @@ import { useAppStore, useUserStore } from '@/stores'
 import OBreadcrumb from './Breadcrumb/index.vue'
 import { confirmBox } from '@/utils/elementPlus'
 import avatar from '@/icons/avatar.svg'
-defineOptions({
-  name: 'OHeader'
-})
+import ChangePassword from '@/components/ChangePassword/index.vue'
 
 const userStore = useUserStore()
 const appStore = useAppStore()
@@ -39,8 +41,15 @@ const appStore = useAppStore()
 const { user } = storeToRefs(userStore)
 const { collapse } = storeToRefs(appStore)
 
+const changePasswordRef = ref()
+
 const handleCollapse = () => {
   appStore.setCollapse(!appStore.collapse)
+}
+
+// 打开修改密码弹窗
+const handleChangePassword = () => {
+  changePasswordRef.value.open()
 }
 
 const handleLogout = () => {

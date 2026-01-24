@@ -30,6 +30,12 @@ const baseMenu = [
     name: '首页',
     icon: 'HomeFilled',
     path: '/home'
+  },
+  {
+    id: 'profile',
+    name: '个人中心',
+    icon: 'User',
+    path: '/profile'
   }
 ]
 

@@ -1,5 +1,10 @@
 <template>
-  <div class="login-container">
+  <div
+    :class="{
+      'login-container': true,
+      'register-container': !isLogin
+    }"
+  >
     <LoginForm
       v-if="isLogin"
       class="p-20px h-auto m-auto lt-xl:rounded-3xl lt-xl:light:bg-white"
@@ -100,6 +105,15 @@ const toLogin = () => {
     .copyright {
       font-size: 14px;
     }
+  }
+}
+
+.register-container {
+  .login-card {
+    max-width: 600px;
+  }
+  .top-title {
+    margin-bottom: 20px;
   }
 }
 

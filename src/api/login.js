@@ -1,4 +1,4 @@
-import { get, post } from '@/utils/request'
+import { get, post, patch } from '@/utils/request'
 export function onUserLogin(params) {
   return post('/auth/login', params)
 }
@@ -17,5 +17,13 @@ export function logout() {
   return post('/auth/logout')
 }
 export function getCurrentUserInfo() {
-  return get('/users/profile')
+  return get('/profile')
+}
+
+export function updateUserInfo(params) {
+  return patch('/profile', params)
+}
+
+export function changePassword(params) {
+  return patch('/profile/change-password', params)
 }
