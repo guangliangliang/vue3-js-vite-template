@@ -10,6 +10,8 @@ onMounted(() => {
 
 <template>
   <ConfigGlobal>
+    <!-- 鼠标特效组件 -->
+    <MouseEffects />
     <router-view></router-view>
   </ConfigGlobal>
 </template>
