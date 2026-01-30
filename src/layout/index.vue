@@ -65,6 +65,8 @@ onMounted(() => {
   if (getToken()) {
     useStore.getUser()
     useStore.getGenderData()
+  } else {
+    useStore.onLogout()
   }
 })
 const handleClickOutside = () => {
@@ -114,7 +116,7 @@ const handleClickOutside = () => {
   .menu-container {
     border-right: none;
     box-shadow: unset;
-    top: 0;
+    // top: 0;
   }
 
   :deep(.el-menu) {
