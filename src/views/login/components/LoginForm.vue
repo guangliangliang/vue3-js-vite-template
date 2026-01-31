@@ -44,12 +44,7 @@
         </el-form-item>
       </el-form>
       <div class="footer">
-        <div class="links">
-          <a href="#">帮助</a>
-          <a href="#">隐私</a>
-          <a href="#">条款</a>
-        </div>
-        <div class="copyright">Copyright &copy;@2025 科技有限公司 管理系统服务</div>
+        <BaseAQ />
       </div>
     </el-card>
   </div>
