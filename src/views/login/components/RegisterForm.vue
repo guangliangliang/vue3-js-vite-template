@@ -70,6 +70,7 @@ import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores'
 import { onUserRegister } from '@/api/login'
 import { DEV_FLAG, IMAGE_UPLOAD } from '@/config'
+import { passwordRules } from '../config'
 const emit = defineEmits(['to-login'])
 const userStore = useUserStore()
 const formRef = ref()
@@ -110,7 +111,7 @@ const rules = reactive({
   ],
   gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
   roleId: [{ required: true, message: '请选择角色', trigger: 'change' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  password: [passwordRules],
   avatar: [
     { type: 'url', message: '请输入有效的URL地址', trigger: ['blur', 'change'], required: false }
   ]

@@ -1,6 +1,6 @@
 <template>
   <el-dialog v-model="visible" title="修改密码" width="500px" destroy-on-close>
-    <el-form ref="passwordFormRef" :model="passwordForm" :rules="passwordRules" label-width="120px">
+    <el-form ref="passwordFormRef" :model="passwordForm" :rules="formRules" label-width="120px">
       <el-form-item prop="oldPassword" label="旧密码">
         <el-input
           v-model="passwordForm.oldPassword"
@@ -42,6 +42,7 @@ import { ref, defineExpose } from 'vue'
 import { changePassword } from '@/api/login'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores'
+import { passwordRules } from '@/views/login/config'
 
 // 组件的可见性
 const visible = ref(false)
@@ -55,21 +56,22 @@ const passwordForm = ref({
 })
 
 // 表单验证规则
-const passwordRules = ref({
+const formRules = ref({
   oldPassword: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
-  newPassword: [
-    { required: true, message: '请输入新密码', trigger: 'blur' },
-    { min: 6, message: '新密码长度不能少于6个字符', trigger: 'blur' }
-  ],
+  newPassword: [passwordRules],
   confirmPassword: [
-    { required: true, message: '请确认新密码', trigger: 'blur' },
     {
+      required: true,
       validator: (rule, value, callback) => {
+        if (!value) {
+          callback(new Error('请确认密码'))
+          return
+        }
         if (value !== passwordForm.value.newPassword) {
           callback(new Error('两次输入的密码不一致'))
-        } else {
-          callback()
+          return
         }
+        callback()
       },
       trigger: 'blur'
     }
