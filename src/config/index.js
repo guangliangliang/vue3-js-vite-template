@@ -15,7 +15,7 @@ if (baseICP) {
 if (basePSB) {
   RegistrationConfig.push({
     label: basePSB,
-    url: 'https://beian.mps.gov.cn/'
+    url: `https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=${basePSB}`
   })
 }
 

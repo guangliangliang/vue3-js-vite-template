@@ -21,8 +21,6 @@
 </template>
 
 <script setup>
-import 'swiper/swiper-bundle.css'
-
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { Pagination, Navigation, Autoplay } from 'swiper'
 const modules = [Pagination, Navigation, Autoplay]
