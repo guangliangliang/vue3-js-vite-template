@@ -21,7 +21,7 @@ export const baseURL = import.meta.env.VITE_APP_API_BASEURL
 const service = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL, // 环境变量
   timeout: 10000, // 超时设置
-  withCredentials: true
+  withCredentials: false
 })
 
 // 请求拦截器

@@ -3,7 +3,12 @@
     <el-form ref="ruleForm" class="w-100" :model="formData" :rules="formRules" label-position="top">
       <el-form-item label="所属分类" prop="category_id">
         <el-select v-model="formData.category_id" placeholder="请选择分类" style="width: 100%">
-          <el-option v-for="item in categoryOptions" :key="item.id" :label="item.name" :value="item.id" />
+          <el-option
+            v-for="item in categoryOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
         </el-select>
       </el-form-item>
       <el-form-item label="API名称" prop="name">
@@ -33,13 +38,28 @@
         </el-select>
       </el-form-item>
       <el-form-item label="请求参数" prop="request_params">
-        <el-input v-model="requestParamsStr" type="textarea" placeholder="请输入请求参数（JSON格式）" :rows="4" />
+        <el-input
+          v-model="requestParamsStr"
+          type="textarea"
+          placeholder="请输入请求参数（JSON格式）"
+          :rows="4"
+        />
       </el-form-item>
       <el-form-item label="响应示例" prop="response_example">
-        <el-input v-model="responseExampleStr" type="textarea" placeholder="请输入响应示例（JSON格式）" :rows="4" />
+        <el-input
+          v-model="responseExampleStr"
+          type="textarea"
+          placeholder="请输入响应示例（JSON格式）"
+          :rows="4"
+        />
       </el-form-item>
       <el-form-item label="文档内容" prop="doc_content">
-        <el-input v-model="formData.doc_content" type="textarea" placeholder="请输入文档内容" :rows="4" />
+        <el-input
+          v-model="formData.doc_content"
+          type="textarea"
+          placeholder="请输入文档内容"
+          :rows="4"
+        />
       </el-form-item>
       <el-form-item label="排序" prop="sort">
         <el-input-number v-model="formData.sort" :min="0" placeholder="请输入排序" />
@@ -120,28 +140,30 @@ const apiInfo = async () => {
     sort: info.data.sort,
     status: info.data.status
   })
-  
-  requestParamsStr.value = typeof info.data.request_params === 'string' 
-    ? info.data.request_params 
-    : JSON.stringify(info.data.request_params, null, 2)
-  
-  responseExampleStr.value = typeof info.data.response_example === 'string'
-    ? info.data.response_example
-    : JSON.stringify(info.data.response_example, null, 2)
+
+  requestParamsStr.value =
+    typeof info.data.request_params === 'string'
+      ? info.data.request_params
+      : JSON.stringify(info.data.request_params, null, 2)
+
+  responseExampleStr.value =
+    typeof info.data.response_example === 'string'
+      ? info.data.response_example
+      : JSON.stringify(info.data.response_example, null, 2)
 }
 
 const onConfirm = (loading) => {
   ruleForm.value?.validate(async (valid) => {
     if (valid) {
       loading(true)
-      
+
       try {
         const submitData = { ...formData }
-        
+
         if (requestParamsStr.value) {
           submitData.request_params = JSON.parse(requestParamsStr.value)
         }
-        
+
         if (responseExampleStr.value) {
           submitData.response_example = JSON.parse(responseExampleStr.value)
         }
@@ -157,6 +179,7 @@ const onConfirm = (loading) => {
         loading(false)
         router.back()
       } catch (err) {
+        console.log(err)
         loading(false)
         ElMessage.error('JSON格式错误，请检查请求参数和响应示例')
       }

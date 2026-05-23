@@ -16,7 +16,7 @@ const codeMessage = {
 const service = axios.create({
   baseURL: import.meta.env.VITE_FREE_API_BASE_URL,
   timeout: 10000,
-  withCredentials: true
+  withCredentials: false
 })
 
 service.interceptors.request.use(
