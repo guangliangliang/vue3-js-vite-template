@@ -2,9 +2,24 @@
   <el-card element-loading-text="玩命加载中...">
     <div class="table-top-bar">
       <div class="search-bar">
-        <el-input v-model="searchForm.keyword" placeholder="请输入API名称" clearable style="width: 200px; margin-right: 10px" />
-        <el-select v-model="searchForm.category_id" placeholder="请选择分类" clearable style="width: 200px; margin-right: 10px">
-          <el-option v-for="item in categoryOptions" :key="item.id" :label="item.name" :value="item.id" />
+        <el-input
+          v-model="searchForm.keyword"
+          placeholder="请输入API名称"
+          clearable
+          style="width: 200px; margin-right: 10px"
+        />
+        <el-select
+          v-model="searchForm.category_id"
+          placeholder="请选择分类"
+          clearable
+          style="width: 200px; margin-right: 10px"
+        >
+          <el-option
+            v-for="item in categoryOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
         </el-select>
         <el-button type="primary" @click="loadData">搜索</el-button>
         <el-button @click="resetSearch">重置</el-button>
@@ -45,7 +60,13 @@
       <el-table-column fixed="right" width="150" label="操作">
         <template #default="{ row }">
           <el-link type="primary" :underline="false" @click="handleEdit(row)">编辑</el-link>
-          <el-link type="danger" :underline="false" @click="handleDelete(row)" style="margin-left: 10px">删除</el-link>
+          <el-link
+            type="danger"
+            :underline="false"
+            @click="handleDelete(row)"
+            style="margin-left: 10px"
+            >删除</el-link
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -141,11 +162,13 @@ const handleDelete = (row) => {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning'
-  }).then(async () => {
-    await deleteApi(row.id)
-    ElMessage.success('删除成功')
-    loadData()
-  }).catch(() => {})
+  })
+    .then(async () => {
+      await deleteApi(row.id)
+      ElMessage.success('删除成功')
+      loadData()
+    })
+    .catch(() => {})
 }
 
 onMounted(() => {
