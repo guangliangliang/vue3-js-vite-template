@@ -58,12 +58,32 @@ const systemMenu = {
   ]
 }
 
+// 免费API管理菜单
+const freeApiMenu = {
+  id: 'freeApi',
+  name: '免费API管理',
+  icon: 'Document',
+  children: [
+    {
+      id: 'category',
+      name: '分类管理',
+      path: '/freeApi/category'
+    },
+    {
+      id: 'api',
+      name: 'API管理',
+      path: '/freeApi/api'
+    }
+  ]
+}
+
 // 根据用户权限动态生成菜单
 const menuList = computed(() => {
   const menus = [...baseMenu]
-  // 如果是管理员，添加系统管理菜单
+  // 如果是管理员，添加系统管理菜单和免费API管理菜单
   if (userStore.isAdmin) {
     menus.push(systemMenu)
+    menus.push(freeApiMenu)
   }
   return menus
 })

@@ -54,11 +54,13 @@ import OHeader from './Header.vue'
 import OMenu from './Menu/Menu.vue'
 import { getToken } from '@/utils/auth'
 import { onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import TitleLogo from '@/layout/TitleLogo.vue'
 import OTagsView from './TagsView.vue'
 
 const appStore = useAppStore()
 const useStore = useUserStore()
+const router = useRouter()
 const layout = computed(() => appStore.getLayout)
 
 onMounted(() => {
@@ -66,7 +68,7 @@ onMounted(() => {
     useStore.getUser()
     useStore.getGenderData()
   } else {
-    useStore.onLogout()
+    router.push('/login')
   }
 })
 const handleClickOutside = () => {

@@ -54,7 +54,7 @@ export const useUserStore = defineStore('user', () => {
     const res = await getRoleList()
     console.log(res, 'resres')
     if (res.code === 200) {
-      roles.value = res.data.list.map((item) => {
+      roles.value = res.data.map((item) => {
         const { id: key, name: value } = item
         return { key, value }
       })
